@@ -3,6 +3,8 @@
 
         <addExpense v-if="showAddExpenseModal" @completed="addedExpense" @close="showAddExpenseModal = false"></addExpense>
         <deleteExpense v-if="showDeleteExpenseModal" @completed="deletedExpense" @close="showDeleteExpenseModal = false" :expense="expense"></deleteExpense>
+        <viewExpense v-if="showViewExpenseModal" @completed="viewedExpense" @close="showViewExpenseModal = false"
+                     :expense="expense"></viewExpense>
 
 
         <div class="message is-danger">
@@ -38,7 +40,7 @@
                             <td class="is-narrow">{{ expense.amount }}</td>
 
                             <td>
-                                <a style="text-decoration: none" @click="iets = true">
+                                <a style="text-decoration: none" @click="viewExpense(expense)">
                                     <span class="icon is-small">
                                       <i class="fa fa-info-circle"></i>
                                     </span>
@@ -66,12 +68,14 @@
     import Expense from '../models/Expense';
     import addExpense from '../forms/AddExpense.vue';
     import deleteExpense from '../forms/DeleteExpense.vue'
+    import viewExpense from '../forms/ViewExpense.vue'
 
     export default {
 
         components: {
             addExpense,
-            deleteExpense
+            deleteExpense,
+            viewExpense
         },
 
         data() {
@@ -80,6 +84,7 @@
                 expense: [],
                 showAddExpenseModal: false,
                 showDeleteExpenseModal: false,
+                showViewExpenseModal: false,
             }
         },
 
@@ -111,6 +116,15 @@
                     return expense.id != expenseId;
                 });
                 this.showDeleteExpenseModal = false;
+            },
+
+            viewExpense(expense) {
+                this.$set(this.expense, 0, expense);
+                this.showViewExpenseModal = true;
+            },
+
+            viewedExpense() {
+                this.showViewExpenseModal = false;
             }
         }
 

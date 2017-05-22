@@ -106,6 +106,47 @@ class ExpensesController extends Controller
         return redirect('/expenses');
     }
 
+    public function update(Expense $expense)
+    {
+        $this->authorize('accessExpense', $expense);
+
+        if (is_null(request('expenseDescription'))) {
+            $expenseDescription = $expense->expenseDescription;
+        } else {
+            $expenseDescription = request('expenseDescription');
+        }
+        if (is_null(request('category_id'))) {
+            $category_id = $expense->category_id;
+        } else {
+            $category_id = request('category_id');
+        }
+        if (is_null(request('subcategory_id'))) {
+            $subcategory_id = $expense->subcategory_id;
+        } else {
+            $subcategory_id = request('subcategory_id');
+        }
+        if (is_null(request('account_id'))) {
+            $account_id = $expense->account_id;
+        } else {
+            $account_id = request('account_id');
+        }
+        if (is_null(request('amount'))) {
+            $amount = $expense->amount;
+        } else {
+            $amount = request('amount');
+        }
+
+        Expense::where('id', $expense->id)
+            ->update([
+                'expenseDescription' => $expenseDescription,
+                'category_id' => $category_id,
+                'subcategory_id' => $subcategory_id,
+                'account_id' => $account_id,
+                'amount' => $amount,
+            ]);
+    }
+
+
 
 
 

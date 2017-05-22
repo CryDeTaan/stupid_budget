@@ -36,6 +36,7 @@ Route::delete('/income/{income}', 'IncomesController@destroy');
 Route::get('/expenses', 'ExpensesController@index');
 Route::post('/expenses', 'ExpensesController@index');
 Route::get('/expenses/create', 'ExpensesController@create');
+Route::put('/expenses/{expense}', 'ExpensesController@update');
 Route::post('/expenses/create', 'ExpensesController@store');
 Route::delete('/expenses/{expense}', 'ExpensesController@destroy');
 
