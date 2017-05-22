@@ -20151,40 +20151,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['account'],
-    methods: {
-        onSubmit: function onSubmit(accountId) {
-            axios.delete('/accounts/' + accountId);
-            this.$emit('completed', accountId);
-        }
+  props: ['account'],
+  methods: {
+    onSubmit: function onSubmit(accountId) {
+      axios.delete('/accounts/' + accountId);
+      this.$emit('completed', accountId);
     }
+  }
 });
 
 /***/ }),
@@ -23768,7 +23743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('section', {
     staticClass: "modal-card-body"
-  }, [_vm._v("\n            Are you sure you want to delete the following account:"), _c('br'), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Name : ")]), _vm._v("\n            " + _vm._s(_vm.account[0].accountName)), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Type  : ")]), _vm._v("\n            " + _vm._s(_vm.account[0].accountType)), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Balance  : ")]), _vm._v("\n            " + _vm._s(_vm.account[0].balance) + "\n        ")]), _vm._v(" "), _c('footer', {
+  }, [_vm._v("\r                Are you sure you want to delete the following account:"), _c('br'), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Name : ")]), _vm._v("\r                " + _vm._s(_vm.account[0].accountName)), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Type  : ")]), _vm._v("\r                " + _vm._s(_vm.account[0].accountType)), _c('br'), _vm._v(" "), _c('strong', [_vm._v("  Account Balance  : ")]), _vm._v("\r                " + _vm._s(_vm.account[0].balance) + "\r            ")]), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-danger",
