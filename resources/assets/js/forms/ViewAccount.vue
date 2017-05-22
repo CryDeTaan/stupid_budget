@@ -52,7 +52,12 @@
 
         data() {
             return {
-                form: new Form({accountName: '', accountDescription: '', accountType: '', balance: ''})
+                form: new Form({
+                    accountName: '',
+                    accountDescription: '',
+                    accountType: '',
+                    balance: ''
+                })
             }
 
         },

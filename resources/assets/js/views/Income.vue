@@ -3,6 +3,7 @@
 
         <addIncome v-if="showAddIncomeModal" @completed="addedIncome" @close="showAddIncomeModal = false"></addIncome>
         <deleteIncome v-if="showDeleteIncomeModal" @completed="deletedIncome" @close="showDeleteIncomeModal = false" :income="income"></deleteIncome>
+        <viewIncome v-if="showViewIncomeModal" @completed="viewedIncome" @close="showViewIncomeModal = false" :income="income"></viewIncome>
 
         <div class="message is-success">
             <div class="message-header">
@@ -29,7 +30,7 @@
                             <td class="is-narrow">{{ income.amount }}</td>
 
                             <td>
-                                <a style="text-decoration: none" @click="iets = true">
+                                <a style="text-decoration: none" @click="viewIncome(income)">
                                     <span class="icon is-small">
                                       <i class="fa fa-info-circle"></i>
                                     </span>
@@ -55,12 +56,14 @@
     import Income from '../models/Income'
     import addIncome from '../forms/AddIncome.vue';
     import deleteIncome from '../forms/DeleteIncome.vue'
+    import viewIncome from '../forms/ViewIncome.vue'
 
     export default {
 
         components: {
             addIncome,
-            deleteIncome
+            deleteIncome,
+            viewIncome
         },
 
         data() {
@@ -68,7 +71,8 @@
                 incomes: [],
                 income: [],
                 showAddIncomeModal: false,
-                showDeleteIncomeModal: false
+                showDeleteIncomeModal: false,
+                showViewIncomeModal: false
             }
 
         },
@@ -101,6 +105,15 @@
                     return income.id != incomeId;
                 });
                 this.showDeleteIncomeModal = false;
+            },
+
+            viewIncome(income) {
+                this.$set(this.income,0,income);
+                this.showViewIncomeModal = true;
+            },
+
+            viewedIncome() {
+                this.showViewIncomeModal = false;
             }
         }
 

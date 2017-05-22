@@ -6,6 +6,7 @@ use App\Account;
 use Illuminate\Http\Request;
 use App\Income;
 use Carbon\Carbon;
+use Illuminate\Validation\Rules\In;
 
 class IncomesController extends Controller
 {
@@ -89,6 +90,35 @@ class IncomesController extends Controller
         // Redirect
         return redirect('/income');
     }
+
+    public function update(Income $income)
+    {
+        $this->authorize('accessIncome', $income);
+
+        if (is_null(request('incomeDescription'))) {
+            $incomeDescription = $income->incomeDescription;
+        } else {
+            $incomeDescription = request('incomeDescription');
+        }
+        if (is_null(request('account_id'))) {
+            $account_id = $income->account_id;
+        } else {
+            $account_id = request('account_id');
+        }
+        if (is_null(request('amount'))) {
+            $amount = $income->amount;
+        } else {
+            $amount = request('amount');
+        }
+
+        Income::where('id', $income->id)
+            ->update([
+                'incomeDescription' => $incomeDescription,
+                'account_id' => $account_id,
+                'amount' => $account_id
+            ]);
+    }
+
 
     public function destroy(Income $income)
     {

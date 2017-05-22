@@ -108,8 +108,7 @@
 
             viewedAccount() {
                 this.showViewAccountModal = false;
-                alert('test')
-                this.$forceUpdate(accounts);
+                this.$forceUpdate();
             }
         }
 

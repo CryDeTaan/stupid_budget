@@ -73,7 +73,7 @@ class AccountsController extends Controller
 //        return redirect('/accounts');
     }
 
-    public function update(Request $request, Account $account)
+    public function update(Account $account)
     {
         $this->authorize('accessAccount', $account);
 

@@ -23,13 +23,14 @@ Route::get('/home', 'HomeController@index');
 Route::get('/accounts', 'AccountsController@index');
 Route::get('/accounts/create', 'AccountsController@create');
 Route::post('/accounts/create', 'AccountsController@store');
-Route::delete('/accounts/{account}', 'AccountsController@destroy');
 Route::put('/accounts/{account}', 'AccountsController@update');
+Route::delete('/accounts/{account}', 'AccountsController@destroy');
 
 Route::get('/income', 'IncomesController@index');
 Route::post('/income', 'IncomesController@index');
 Route::get('/income/create', 'IncomesController@create');
 Route::post('/income/create', 'IncomesController@store');
+Route::put('/income/{income}', 'IncomesController@update');
 Route::delete('/income/{income}', 'IncomesController@destroy');
 
 Route::get('/expenses', 'ExpensesController@index');

@@ -20391,7 +20391,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            form: new Form({ accountName: '', accountDescription: '', accountType: '', balance: '' })
+            form: new Form({
+                accountName: '',
+                accountDescription: '',
+                accountType: '',
+                balance: ''
+            })
         };
     },
 
@@ -20526,8 +20531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         viewedAccount: function viewedAccount() {
             this.showViewAccountModal = false;
-            alert('test');
-            this.$forceUpdate(accounts);
+            this.$forceUpdate();
         }
     }
 
@@ -20698,6 +20702,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_AddIncome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__forms_AddIncome_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_DeleteIncome_vue__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_DeleteIncome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_DeleteIncome_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__forms_ViewIncome_vue__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__forms_ViewIncome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__forms_ViewIncome_vue__);
 //
 //
 //
@@ -20750,6 +20756,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -20760,7 +20768,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     components: {
         addIncome: __WEBPACK_IMPORTED_MODULE_1__forms_AddIncome_vue___default.a,
-        deleteIncome: __WEBPACK_IMPORTED_MODULE_2__forms_DeleteIncome_vue___default.a
+        deleteIncome: __WEBPACK_IMPORTED_MODULE_2__forms_DeleteIncome_vue___default.a,
+        viewIncome: __WEBPACK_IMPORTED_MODULE_3__forms_ViewIncome_vue___default.a
     },
 
     data: function data() {
@@ -20768,7 +20777,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             incomes: [],
             income: [],
             showAddIncomeModal: false,
-            showDeleteIncomeModal: false
+            showDeleteIncomeModal: false,
+            showViewIncomeModal: false
         };
     },
 
@@ -20804,6 +20814,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return income.id != incomeId;
             });
             this.showDeleteIncomeModal = false;
+        },
+        viewIncome: function viewIncome(income) {
+            this.$set(this.income, 0, income);
+            this.showViewIncomeModal = true;
+        },
+        viewedIncome: function viewedIncome() {
+            this.showViewIncomeModal = false;
         }
     }
 
@@ -23961,6 +23978,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showDeleteIncomeModal = false
       }
     }
+  }) : _vm._e(), _vm._v(" "), (_vm.showViewIncomeModal) ? _c('viewIncome', {
+    attrs: {
+      "income": _vm.income
+    },
+    on: {
+      "completed": _vm.viewedIncome,
+      "close": function($event) {
+        _vm.showViewIncomeModal = false
+      }
+    }
   }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "message is-success"
   }, [_c('div', {
@@ -23996,7 +24023,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.iets = true
+          _vm.viewIncome(income)
         }
       }
     }, [_vm._m(1, true)]), _vm._v(" "), _c('a', {
@@ -33796,6 +33823,278 @@ module.exports = function(module) {
 __webpack_require__(127);
 module.exports = __webpack_require__(128);
 
+
+/***/ }),
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Account__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: ['income'],
+
+    data: function data() {
+        return {
+            form: new Form({
+                incomeDescription: '',
+                account_id: '',
+                amount: ''
+            }),
+            accounts: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__models_Account__["a" /* default */].all().then(function (_ref) {
+            var data = _ref.data;
+            return _this.accounts = data;
+        });
+    },
+
+
+    methods: {
+        onSubmit: function onSubmit(incomeId) {
+
+            this.form.put('/income/' + incomeId);
+            this.$emit('completed', incomeId);
+        }
+    }
+
+});
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(211),
+  /* template */
+  __webpack_require__(213),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiaan.dewet/laravel/oba_2.0/resources/assets/js/forms/ViewIncome.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ViewIncome.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7e8e9fcc", Component.options)
+  } else {
+    hotAPI.reload("data-v-7e8e9fcc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal is-active"
+  }, [_c('div', {
+    staticClass: "modal-background"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal-card"
+  }, [_c('header', {
+    staticClass: "modal-card-head"
+  }, [_c('p', {
+    staticClass: "modal-card-title"
+  }, [_vm._v("Add Income")]), _vm._v(" "), _c('button', {
+    staticClass: "delete",
+    on: {
+      "click": function($event) {
+        _vm.$emit('close')
+      }
+    }
+  })]), _vm._v(" "), _c('section', {
+    staticClass: "modal-card-body"
+  }, [_c('form', [_c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Update the Income Description from " + _vm._s(_vm.income[0].incomeDescription))]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.incomeDescription),
+      expression: "form.incomeDescription"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.form.incomeDescription)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.incomeDescription = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Update the Account for the income from " + _vm._s(_vm.income[0].accountName))]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.account_id),
+      expression: "form.account_id"
+    }],
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.account_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.accounts), function(account) {
+    return _c('option', {
+      domProps: {
+        "value": account.id
+      }
+    }, [_vm._v(_vm._s(account.accountName))])
+  }))])])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Update the Income Amount from " + _vm._s(_vm.income[0].amount))]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.amount),
+      expression: "form.amount"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.form.amount)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.amount = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })])])])]), _vm._v(" "), _c('footer', {
+    staticClass: "modal-card-foot"
+  }, [_c('a', {
+    staticClass: "button is-success",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": function($event) {
+        _vm.onSubmit(_vm.income[0].id)
+      }
+    }
+  }, [_vm._v("Update Income")]), _vm._v(" "), _c('a', {
+    staticClass: "button",
+    on: {
+      "click": function($event) {
+        _vm.$emit('close')
+      }
+    }
+  }, [_vm._v("Cancel")])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7e8e9fcc", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
