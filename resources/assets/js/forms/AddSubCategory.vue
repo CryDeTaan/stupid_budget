@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import Subcategory from '../models/Subcategory';
     export default {
         props: ['category'],
         data() {
@@ -48,7 +49,6 @@
         methods: {
             onSubmit(id) {
                 this.$set(this.form,"id",id);
-//                console.log(this.form)
                 this.form
                     .post('/subcategories/create')
                     .then(subcategory => this.$emit('completed', subcategory));

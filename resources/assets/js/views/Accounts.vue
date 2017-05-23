@@ -84,7 +84,7 @@
         },
         methods: {
             addedAccount(account) {
-                account = account.pop();
+//                account = account.pop();
                 this.accounts.unshift(account);
                 this.showAddAccountModal = false;
             },
@@ -106,9 +106,14 @@
                 this.showViewAccountModal = true;
             },
 
-            viewedAccount() {
+            viewedAccount(account) {
+                console.log(account);
+                var accountIndex = this.accounts
+                    .findIndex(account => account.id == account.id);
+                console.log(accountIndex);
+                this.$set(this.accounts, accountIndex, account[0]);
                 this.showViewAccountModal = false;
-                this.$forceUpdate();
+                console.log(this.accounts);
             }
         }
 

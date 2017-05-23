@@ -66,8 +66,8 @@
 
             onSubmit(accountId) {
                 this.form
-                    .put('/accounts/' + accountId);
-                    this.$emit('completed', accountId);
+                    .put('/accounts/' + accountId)
+                    .then(account => this.$emit('completed', account));
             }
 
         }

@@ -63,12 +63,13 @@ class CategoriesController extends Controller
                 'categoryName' => 'required',
             ]);
             // Store Data only if the category and sub category pair is unique for the user data is not
-            Category::firstOrCreate([
+        $category = Category::firstOrCreate([
                 'user_id' => auth()->id(),
                 'categoryName' => request('categoryName'),
             ]);
         // Redirect
-        return redirect('/categories');
+//        return redirect('/categories');
+        return $category;
     }
     public function destroy(Category $category)
     {

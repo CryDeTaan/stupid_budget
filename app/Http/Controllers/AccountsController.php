@@ -60,7 +60,7 @@ class AccountsController extends Controller
 
         // Store Data
         // TODO: Store Data only if the category and sub category pair is unique for the user data is not
-        Account::create([
+        $account = Account::create([
             'user_id' => auth()->id(),
             'accountName'=> request('accountName'),
             'accountDescription' => request('accountDescription'),
@@ -70,7 +70,7 @@ class AccountsController extends Controller
         ]);
 
         // Redirect
-//        return redirect('/accounts');
+        return $account;
     }
 
     public function update(Account $account)
@@ -105,6 +105,10 @@ class AccountsController extends Controller
                 'accountType' => $accountType,
                 'balance' => $balance,
             ]);
+
+        $account = Account::where('id', $account->id)->get();
+
+        return $account;
     }
 
 

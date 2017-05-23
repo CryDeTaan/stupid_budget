@@ -113,7 +113,7 @@
         },
         methods: {
             addedCategory(category) {
-                category = category.pop();
+                console.log(category);
                 this.categories.unshift(category);
                 this.showAddCategoryModal = false;
             },
@@ -123,7 +123,7 @@
                     .getElementsByClassName("selectorClass");
                 for (var i = 0; i < subCategories.length; i++) {
                     subCategories[i].classList.toggle("toggleSubCategory");
-                };
+                }
             },
 
             addSubCategory(category_details) {
@@ -131,9 +131,12 @@
                 this.showAddSubCategoryModal = true;
             },
 
-            addedSubcategory() {
+            addedSubcategory(subcategory) {
+                var categoryIndex = this.categories
+                    .findIndex(category => category.id == subcategory.category_id);
+                var thisCategory = this.categories[categoryIndex];
+                thisCategory.subcategory.unshift(subcategory);
                 this.showAddSubCategoryModal = false;
-                this.$forceUpdate();
             },
 
             deleteCategory(category) {
