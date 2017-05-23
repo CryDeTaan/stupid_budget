@@ -110,8 +110,8 @@
 
             onSubmit(expenseId) {
                 this.form
-                    .put('/expenses/' + expenseId);
-                this.$emit('completed', expenseId);
+                    .put('/expenses/' + expenseId)
+                    .then(expense => this.$emit('completed', expense));
             }
 
         }

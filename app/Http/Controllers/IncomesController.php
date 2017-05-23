@@ -115,8 +115,12 @@ class IncomesController extends Controller
             ->update([
                 'incomeDescription' => $incomeDescription,
                 'account_id' => $account_id,
-                'amount' => $account_id
+                'amount' => $amount
             ]);
+
+        $income = Income::where('id', $income->id)->with('account')->get();
+
+        return $income;
     }
 
 

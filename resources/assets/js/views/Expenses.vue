@@ -123,7 +123,11 @@
                 this.showViewExpenseModal = true;
             },
 
-            viewedExpense() {
+            viewedExpense(expenseUpdated) {
+                console.log(expenseUpdated[0].category.categoryName)
+                let expenseIndex = this.expenses
+                    .findIndex(expense => expense.id === expenseUpdated[0].id);
+                this.$set(this.expenses, expenseIndex, expenseUpdated[0]);
                 this.showViewExpenseModal = false;
             }
         }

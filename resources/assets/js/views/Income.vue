@@ -112,7 +112,10 @@
                 this.showViewIncomeModal = true;
             },
 
-            viewedIncome() {
+            viewedIncome(incomeUpdated) {
+                let incomeIndex = this.incomes
+                    .findIndex(income => income.id === incomeUpdated[0].id);
+                this.$set(this.incomes,incomeIndex, incomeUpdated[0]);
                 this.showViewIncomeModal = false;
             }
         }

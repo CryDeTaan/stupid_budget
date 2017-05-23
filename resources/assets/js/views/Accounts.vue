@@ -106,14 +106,11 @@
                 this.showViewAccountModal = true;
             },
 
-            viewedAccount(account) {
-                console.log(account);
-                var accountIndex = this.accounts
-                    .findIndex(account => account.id == account.id);
-                console.log(accountIndex);
-                this.$set(this.accounts, accountIndex, account[0]);
+            viewedAccount(accountUpdated) {
+                let accountIndex = this.accounts
+                    .findIndex(account => account.id === accountUpdated[0].id);
+                this.$set(this.accounts, accountIndex, accountUpdated[0]);
                 this.showViewAccountModal = false;
-                console.log(this.accounts);
             }
         }
 

@@ -23,7 +23,7 @@ let routes = [
     },
     {
         path: '/categories',
-        component: require('./views/categories.vue')
+        component: require('./views/Categories.vue')
 
     }
 ];

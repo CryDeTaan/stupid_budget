@@ -144,6 +144,12 @@ class ExpensesController extends Controller
                 'account_id' => $account_id,
                 'amount' => $amount,
             ]);
+
+        $expense = Expense::where('id', $expense->id)
+            ->with('category', 'subcategory', 'account')
+            ->get();
+
+        return $expense;
     }
 
 

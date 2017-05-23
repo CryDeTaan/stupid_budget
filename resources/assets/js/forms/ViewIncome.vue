@@ -77,10 +77,8 @@
             onSubmit(incomeId) {
 
                 this.form
-                    .put('/income/' + incomeId);
-                    this.$emit('completed', incomeId);
-
-
+                    .put('/income/' + incomeId)
+                    .then(income =>  this.$emit('completed', income));
             }
         }
 
