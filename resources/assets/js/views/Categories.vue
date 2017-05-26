@@ -126,10 +126,18 @@
                 }
             },
 
+            showSubCategory(id) {
+                var subCategories = document.getElementById(id)
+                    .getElementsByClassName("selectorClass");
+                for (var i = 0; i < (subCategories.length + 1); i++) {
+                    subCategories[i].classList.remove("toggleSubCategory");
+                }
+            },
+
             addSubCategory(category_details) {
                 this.$set(this.category,0,category_details);
                 this.showAddSubCategoryModal = true;
-            },
+                            },
 
             addedSubcategory(subcategory) {
                 var categoryIndex = this.categories
@@ -137,6 +145,7 @@
                 var thisCategory = this.categories[categoryIndex];
                 thisCategory.subcategory.unshift(subcategory);
                 this.showAddSubCategoryModal = false;
+                this.showSubCategory(subcategory.category_id);
             },
 
             deleteCategory(category) {
