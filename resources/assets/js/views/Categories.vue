@@ -129,7 +129,7 @@
             showSubCategory(id) {
                 var subCategories = document.getElementById(id)
                     .getElementsByClassName("selectorClass");
-                for (var i = 0; i < (subCategories.length + 1); i++) {
+                for (var i = 0; i < subCategories.length; i++) {
                     subCategories[i].classList.remove("toggleSubCategory");
                 }
             },
@@ -140,10 +140,16 @@
                             },
 
             addedSubcategory(subcategory) {
+//                var subCategories = document.getElementById(id)
+//                    .getElementsByClassName("selectorClass");
+//                console.log(subCategories.length);
                 var categoryIndex = this.categories
                     .findIndex(category => category.id == subcategory.category_id);
                 var thisCategory = this.categories[categoryIndex];
                 thisCategory.subcategory.unshift(subcategory);
+//                var subCategories = document.getElementById(id)
+//                    .getElementsByClassName("selectorClass");
+//                console.log(subCategories.length);
                 this.showAddSubCategoryModal = false;
                 this.showSubCategory(subcategory.category_id);
             },
