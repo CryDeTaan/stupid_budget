@@ -17,13 +17,9 @@ class ExpensesController extends Controller
         $this->middleware('auth');
     }
 
-
-
-
     public function index()
     {
-
-        if (empty($_POST['fromDate']))
+        if (empty(request()->fromDate))
         {
             $fromDate = Carbon::today()->subDays(30);
             $toDate = Carbon::tomorrow();
@@ -31,19 +27,16 @@ class ExpensesController extends Controller
             $fromDate = request()->fromDate.' 00:00:00';
             $toDate = request()->toDate.' 23:59:59';
         }
-
+//        return $fromDate;
         $expenses = Expense::where('user_id', auth()->id())
                                 ->whereBetween('created_at', array($fromDate, $toDate))
                                 ->with('category', 'subcategory', 'account')
                                 ->orderBy('created_at', 'desc')
                                 ->get();
         return $expenses;
-        return view('expenses.index', compact('expenses'));
+//        return view('expenses.index', compact('expenses'));
 
     }
-
-
-
 
     public function create()
     {
@@ -54,9 +47,6 @@ class ExpensesController extends Controller
         return view('expenses.create', compact('categories', $categories, 'accounts', $accounts));
 
     }
-
-
-
 
     public function store()
     {
@@ -151,10 +141,6 @@ class ExpensesController extends Controller
 
         return $expense;
     }
-
-
-
-
 
     public function destroy(Expense $expense)
     {

@@ -1,19 +1,53 @@
 <template>
     <div class="columns">
 
-        <addExpense v-if="showAddExpenseModal" @completed="addedExpense" @close="showAddExpenseModal = false"></addExpense>
-        <deleteExpense v-if="showDeleteExpenseModal" @completed="deletedExpense" @close="showDeleteExpenseModal = false" :expense="expense"></deleteExpense>
+        <addExpense v-if="showAddExpenseModal" @completed="addedExpense"
+                    @close="showAddExpenseModal = false"></addExpense>
+        <deleteExpense v-if="showDeleteExpenseModal" @completed="deletedExpense" @close="showDeleteExpenseModal = false"
+                       :expense="expense"></deleteExpense>
         <viewExpense v-if="showViewExpenseModal" @completed="viewedExpense" @close="showViewExpenseModal = false"
                      :expense="expense"></viewExpense>
 
 
         <div class="message is-danger">
             <div class="message-header">
-                Expense details
-                <a class="button is-danger is-inverted is-outlined" @click="showAddExpenseModal = true" style="text-decoration: none">Add Expense</a>
+                Expense detail
+                <a class="button is-danger is-inverted is-outlined" @click="showAddExpenseModal = true"
+                   style="text-decoration: none">Add Expense</a>
             </div>
 
             <div class="message-body">
+                <form>
+                    <div class="field is-horizontal is-clearfix">
+                        <!--<div class="field-label is-normal">
+                            <label class="label">Filter</label>
+                        </div>-->
+                        <div class="field-body">
+                            <div class="field is-grouped">
+                                <p class="control">
+                                    <datepicker
+                                            placeholder="Search From"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            v-model="form.fromDate">
+
+                                    </datepicker>
+                                </p>
+                                <p class="control ">
+                                    <datepicker
+                                            placeholder="Search To"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            v-model="form.toDate">
+                                    </datepicker>
+                                </p>
+                                <p class="control">
+                                    <a class="button is-danger is-outlined" @click="onSubmit()"
+                                       style="text-decoration: none">Search Expense</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </form>
 
                 <div class="box">
 
@@ -69,13 +103,15 @@
     import addExpense from '../forms/AddExpense.vue';
     import deleteExpense from '../forms/DeleteExpense.vue'
     import viewExpense from '../forms/ViewExpense.vue'
+    import Datepicker from 'vue-bulma-datepicker'
 
     export default {
 
         components: {
             addExpense,
             deleteExpense,
-            viewExpense
+            viewExpense,
+            Datepicker
         },
 
         data() {
@@ -85,12 +121,16 @@
                 showAddExpenseModal: false,
                 showDeleteExpenseModal: false,
                 showViewExpenseModal: false,
+                form: new Form({fromDate: '', toDate: ''})
             }
         },
 
         filters: {
-            date(created_at){
-                return moment(created_at, 'YYYY-MM-DD').format('DD-MM-YYYY');
+            date(date){
+                return moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+            },
+            date30(date){
+                return moment(date, 'YYYY-MM-DD').subtract(30, 'days').format('DD-MM-YYYY');
             }
         },
 
@@ -100,6 +140,13 @@
         },
 
         methods: {
+
+            onSubmit() {
+                this.form
+                    .post('/expenses')
+                    .then(response => this.expenses = response);
+            },
+
             addedExpense(expense) {
                 expense = expense.shift();
                 this.expenses.unshift(expense);
@@ -107,7 +154,7 @@
             },
 
             deleteExpense(expense) {
-                this.$set(this.expense,0,expense);
+                this.$set(this.expense, 0, expense);
                 this.showDeleteExpenseModal = true;
             },
 

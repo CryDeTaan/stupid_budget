@@ -5,10 +5,10 @@
             <deleteAccount v-if="showDeleteAccountModal" @completed="deletedAccount" @close="showDeleteAccountModal = false" :account="account"></deleteAccount>
             <viewAccount v-if="showViewAccountModal" @completed="viewedAccount" @close="showViewAccountModal = false" :account="account"></viewAccount>
 
-            <div class="message is-primary">
+            <div class="message is-warning">
                 <div class="message-header">
                     Accounts details
-                    <a class="button is-primary is-inverted is-outlined" @click="showAddAccountModal = true" style="text-decoration: none">Add Account</a>
+                    <a class="button is-warning is-inverted is-outlined" @click="showAddAccountModal = true" style="text-decoration: none">Add Account</a>
                 </div>
                 <div class="message-body">
 

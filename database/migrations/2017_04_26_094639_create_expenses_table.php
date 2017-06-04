@@ -20,7 +20,7 @@ class CreateExpensesTable extends Migration
             $table->integer('category_id')->index();
             $table->integer('subcategory_id')->index();
             $table->string('expenseDescription');
-            $table->decimal('amount', 16,2);
+            $table->integer('amount');
             $table->timestamps();
         });
     }

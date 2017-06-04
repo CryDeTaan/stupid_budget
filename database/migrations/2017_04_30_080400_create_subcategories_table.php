@@ -18,7 +18,7 @@ class CreateSubcategoriesTable extends Migration
             $table->integer('category_id')->index()->unsigned();
             $table->integer('user_id')->index();
             $table->string('subcategoryName');
-            $table->decimal('subcategoryBudget', 16,2);
+            $table->integer('subcategoryBudget');
             $table->softDeletes();
             $table->timestamps();
 

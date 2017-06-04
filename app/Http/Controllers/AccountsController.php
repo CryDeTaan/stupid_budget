@@ -14,9 +14,6 @@ class AccountsController extends Controller
         $this->middleware('auth');
     }
 
-
-
-
     public function index()
     {
 
@@ -25,18 +22,12 @@ class AccountsController extends Controller
         return view('accounts.index', compact('accounts'));
     }
 
-
-
-
     public function create()
     {
 
         return view('accounts.create');
 
     }
-
-
-
 
     public function store()
     {
@@ -100,17 +91,17 @@ class AccountsController extends Controller
 
         Account::where('id', $account->id)
             ->update([
-                'accountName'=> $accountName,
+                'accountName' => $accountName,
                 'accountDescription' => $accountDescription,
                 'accountType' => $accountType,
-                'balance' => $balance,
+                'balance' => $balance
             ]);
 
         $account = Account::where('id', $account->id)->get();
 
         return $account;
-    }
 
+    }
 
     public function destroy(Account $account)
     {

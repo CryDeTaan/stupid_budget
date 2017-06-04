@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('accountName');
             $table->string('accountDescription');
             $table->string('accountType');
-            $table->decimal('openingBalance');
+            $table->integer('openingBalance');
             $table->decimal('balance');
             $table->softDeletes();
             $table->timestamps();

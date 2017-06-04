@@ -1,11 +1,11 @@
-<section class="hero is-info">
+<section class="hero is-info    ">
     <!-- Hero header: will stick at the top -->
-    <div class="hero-head is-info">
+    <div class="hero-head">
         <header class="nav">
             <div class="container">
                 <div class="nav-left">
                     <a class="nav-item">
-                        <img src="images/living_stratus_grey.png" alt="Logo">
+                        <img src="images/living_stratus_gradient.png" alt="Logo">
                     </a>
                 </div>
                 <span class="nav-toggle">
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Hero content: will be in the middle -->
-    <div class="hero-body">
+    {{--<div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title">
                 OBA 2.0
@@ -52,7 +52,7 @@
                 Let's Budget
             </h2>
         </div>
-    </div>
+    </div>--}}
 
     <!-- Hero footer: will stick at the bottom -->
     <div class="hero-foot">

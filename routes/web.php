@@ -43,8 +43,10 @@ Route::delete('/expenses/{expense}', 'ExpensesController@destroy');
 Route::get('/categories', 'CategoriesController@index');
 Route::get('/categories/create', 'CategoriesController@create');
 Route::post('/categories/create', 'CategoriesController@store');
+Route::put('/categories/{category}', 'CategoriesController@update');
 Route::delete('/categories/{category}', 'CategoriesController@destroy');
 
 Route::get('/subcategories/{category}', 'SubcategoriesController@index');
 Route::post('/subcategories/create', 'SubcategoriesController@store');
+Route::put('/subcategories/{subcategory}', 'SubcategoriesController@update');
 Route::delete('/subcategories/{subcategory}', 'SubcategoriesController@destroy');

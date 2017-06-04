@@ -15,6 +15,7 @@ class CategoriesController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
         //$budgetStartDayOfMonth = User::where('id', auth()->id())->pluck('budgetStartDayOfMonth');
@@ -33,17 +34,74 @@ class CategoriesController extends Controller
             ->map(function ($category, $_) use ($budgetStart){
                 $category->subcategory
                     ->reduce(function($_, $subcategories) use ($budgetStart){
-                        return $subcategories->budgetRemaining = $subcategories->expense
+                        return $subcategories->budgetUsed = $subcategories->expense
                             ->reduce(function($carry, $expenses) {
-                                return $carry - $expenses->amount;
-                            }, $subcategories->subcategoryBudget);
+                                return $carry + $expenses->amount;
+                            }, 0);
+                    });
+                return $category;
+            })
+            ->map(function ($category, $_) {
+                $category->subcategory
+                    ->reduce(function($_, $subcategories) {
+                        $budgetUsedPercentage = $subcategories->budgetUsed / $subcategories->subcategoryBudget;
+                        switch (true) {
+                            case $budgetUsedPercentage <= .30:
+                                $budgetProgress = 'is-success';
+                                break;
+                            case $budgetUsedPercentage <= .60:
+                                $budgetProgress = 'is-warning';
+                                break;
+                            default:
+                                $budgetProgress = 'is-danger';
+                                break;
+                        }
+                        return $subcategories->budgetProgress = $budgetProgress;
                     });
                 return $category;
             });
+
+        $categories->map(function($category, $_) {
+            return $category->categoryBudget = $category->subcategory
+                ->reduce(function($carry, $subcategories) {
+                    return $carry + $subcategories->subcategoryBudget;
+                }, 0 );
+            return $category;
+        });
+
+        $categories->map(function($category, $_) {
+            return $category->categoryBudgetUsed = $category->subcategory
+                ->reduce(function($carry, $subcategories) {
+                    return $carry + $subcategories->budgetUsed;
+                }, 0);
+            return $category;
+        });
+
+        $categories->map(function($category, $_) {
+            if ( !empty ( $category->categoryBudget ) ) {
+                $budgetUsedPercentage = $category->categoryBudgetUsed / $category->categoryBudget;
+                switch (true) {
+                    case $budgetUsedPercentage <= .30:
+                        $budgetProgress = 'is-success';
+                        break;
+                    case $budgetUsedPercentage <= .60:
+                        $budgetProgress = 'is-warning';
+                        break;
+                    default:
+                        $budgetProgress = 'is-danger';
+                        break;
+                }
+                return $category->budgetProgress = $budgetProgress;
+            }
+        });
+
+
+
         return $categories;
 
-        return view('categories.index', compact('categories'));
+//        return view('categories.index', compact('categories'));
     }
+
     public function create()
     {
         $categories = Category::where('user_id', auth()->id())->get();
@@ -71,6 +129,28 @@ class CategoriesController extends Controller
 //        return redirect('/categories');
         return $category;
     }
+
+    public function update(Category $category)
+    {
+        $this->authorize('accessCategory', $category);
+
+        if (is_null(request('categoryName'))) {
+            $categoryName = $category->categoryName;
+        } else {
+            $categoryName = request('categoryName');
+        }
+
+        Category::where('id', $category->id)
+            ->update([
+                'categoryName' => $categoryName
+            ]);
+
+        $category = Category::where('id', $category->id)->get();
+
+        return $category;
+
+    }
+
     public function destroy(Category $category)
     {
         $this->authorize('accessCategory', $category);
@@ -78,4 +158,5 @@ class CategoriesController extends Controller
         event(new CategoryDeleted($category));
 //        return redirect('/categories');
     }
+
 }

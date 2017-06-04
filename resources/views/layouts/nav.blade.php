@@ -3,7 +3,7 @@
                 <ul>
                     @if (Route::has('login'))
                         @if (Auth::check())
-                            <router-link to="/" exact tag="li"><a>Dashboard</a></router-link>
+                            {{--<router-link to="/" exact tag="li"><a>Dashboard</a></router-link>--}}
                             <router-link to="/accounts" tag="li"><a>Accounts</a></router-link>
                             <router-link to="/income" tag="li"><a>Income</a></router-link>
                             <router-link to="/expenses" tag="li"><a>Expenses</a></router-link>

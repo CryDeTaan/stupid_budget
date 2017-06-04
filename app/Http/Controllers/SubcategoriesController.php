@@ -41,8 +41,33 @@ class SubcategoriesController extends Controller
         return $subcategory;
     }
 
+    public function update(Subcategory $subcategory)
+    {
+        $this->authorize('accessSubcategory', $subcategory);
 
+        if (is_null(request('subcategoryName'))) {
+            $subcategoryName = $subcategory->subcategoryName;
+        } else {
+            $subcategoryName = request('subcategoryName');
+        }
 
+        if (is_null(request('subcategoryBudget'))) {
+            $subcategoryBudget = $subcategory->subcategoryBudget;
+        } else {
+            $subcategoryBudget = request('subcategoryBudget');
+        }
+
+        Subcategory::where('id', $subcategory->id)
+            ->update([
+                'subcategoryName' => $subcategoryName,
+                'subcategoryBudget' => $subcategoryBudget
+            ]);
+
+        $subcategory = Subcategory::where('id', $subcategory->id)->get();
+
+        return $subcategory;
+
+    }
 
     public function destroy(Subcategory $subcategory)
     {
