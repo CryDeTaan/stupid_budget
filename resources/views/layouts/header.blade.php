@@ -8,7 +8,7 @@
 
         <div class="nav-center">
             <a class="nav-item" href="{{ url('/') }}">
-                OBA 2.0
+                {{ config('app.name') }}
             </a>
         </div>
 
