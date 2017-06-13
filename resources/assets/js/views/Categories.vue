@@ -13,7 +13,8 @@
         <div class="column">
             <div class="message is-primary">
                 <div class="message-header">
-                    Category Details
+                    Category Details <br/>
+                    Your budget starts on day {{ budgetStartDay }} of the month.
                     <a class="button is-primary is-inverted is-outlined" @click="showAddCategoryModal = true" style="text-decoration: none">Add Category</a>
                 </div>
                 <div class="message-body">
@@ -117,6 +118,7 @@
                 category: [],
                 subcategories: [],
                 subcategory: [],
+                budgetStartDay: [],
                 showAddCategoryModal: false,
                 showAddSubCategoryModal: false,
                 showDeleteCategoryModal: false,
@@ -128,12 +130,13 @@
 
         created() {
             Category.all()
-                .then(({data}) => this.categories = data);
+                .then(({data}) => this.categories = data[0]);
+            Category.all()
+                .then(({data}) => this.budgetStartDay = data[1]);
         },
         methods: {
 
             addedCategory(category) {
-                console.log(category);
                 this.categories.unshift(category);
                 this.showAddCategoryModal = false;
             },

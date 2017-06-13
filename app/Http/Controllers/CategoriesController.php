@@ -19,7 +19,10 @@ class CategoriesController extends Controller
     public function index()
     {
         //$budgetStartDayOfMonth = User::where('id', auth()->id())->pluck('budgetStartDayOfMonth');
-        $budgetStartDayOfMonth = '02';
+//        $budgetStartDayOfMonth = '02';
+        $budgetStartDayOfMonth = User::where('id', auth()->id())->pluck('budgetStartDay')->first();
+//        return $budgetStartDayOfMonth;
+
         if (Carbon::now()->day >= $budgetStartDayOfMonth) {
             $budgetStart = date('Y-m-'.$budgetStartDayOfMonth);
         } else {
@@ -96,8 +99,7 @@ class CategoriesController extends Controller
         });
 
 
-
-        return $categories;
+        return [$categories, $budgetStartDayOfMonth];
 
 //        return view('categories.index', compact('categories'));
     }
