@@ -17,6 +17,7 @@
     "webpack": "^2.5.0"
   },
   "dependencies": {
+    "bulma": "^0.4.2",
     "css-loader": "^0.28.4",
     "moment": "^2.18.1",
     "stylus": "^0.54.5",

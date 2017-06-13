@@ -1,3 +1,9 @@
+// Import the initial vulma sass variables
+@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+
+// Import the rest of Bulma
+@import "../../../node_modules/bulma/bulma";
+
 .toggleSubCategory {
 
   display: none !important;
