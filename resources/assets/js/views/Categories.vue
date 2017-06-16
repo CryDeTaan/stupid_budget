@@ -32,11 +32,11 @@
                                     </strong>
                             </div>
                             <div class="column is-1">
-                                <!--<a style="text-decoration: none" @click="toggleSubCategory(category.id)">-->
-                                    <!--<span class="icon is-small">-->
-                                      <!--<i class="fa fa-arrow-circle-down"></i>-->
-                                    <!--</span>-->
-                                </a>
+                                <!--<a style="text-decoration: none" @click="toggleSubCategory(category.id)">
+                                    <span class="icon is-small">
+                                      <i class="fa fa-arrow-circle-down"></i>
+                                    </span>
+                                </a>-->
                                 <a style="text-decoration: none" @click="addSubCategory(category)">
                                     <span class="icon is-small">
                                       <i class="fa fa-plus-circle"></i>
@@ -189,9 +189,14 @@
             },
 
             deletedSubcategory(subcategoryId) {
-                this.subcategories = this.subcategories.filter(function (subcategory) {
-                    return subcategory.id != subcategoryId;
-                });
+                let categoryIndex = this.categories
+                    .findIndex(category => category.id == this.subcategory[0].category_id);
+
+                this.categories[categoryIndex].subcategory = this.categories[categoryIndex].subcategory
+                    .filter(function (subcategory) {
+                        return subcategory.id != subcategoryId;
+                    });
+
                 this.showDeleteSubcategoryModal = false;
             },
 

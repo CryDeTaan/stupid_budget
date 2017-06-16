@@ -73,7 +73,6 @@ class SubcategoriesController extends Controller
     {
         $this->authorize('accessSubcategory', $subcategory);
         $subcategory->delete();
-        return redirect('/categories');
     }
 
 }

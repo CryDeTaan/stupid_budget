@@ -18,12 +18,15 @@
                                 <div class="field is-grouped">
                                     <p class="control has-icons-left is-expanded">
                                         <input id="email" type="email" name="email" value="{{ old('email') }}"
-                                               class="input" type="email" placeholder="Email">
+                                               class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+                                               type="email" placeholder="Email">
                                         <span class="icon is-small is-left">
-                            <i class="fa fa-envelope"></i>
-                        </span>
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
                                     </p>
-                                    {{--<p class="help is-success">This email is correct</p>--}}
+                                    @if ($errors->has('email'))
+                                        <p class="help is-danger">{{ $errors->first('email') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -35,13 +38,17 @@
                             <div class="field-body">
                                 <div class="field is-grouped">
                                     <p class="control has-icons-left is-expanded">
-                                        <input id="password" type="password" class="input" name="password"
+                                        <input id="password" type="password"
+                                               class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
+                                               name="password"
                                                placeholder="Password">
                                         <span class="icon is-small is-left">
-                            <i class="fa fa-lock"></i>
-                        </span>
+                                            <i class="fa fa-lock"></i>
+                                        </span>
                                     </p>
-                                    {{--<p class="help is-success">This email is correct</p>--}}
+                                    @if ($errors->has('password'))
+                                        <p class="help is-danger">{{ $errors->first('password') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -101,15 +108,22 @@
                             <div class="field-body">
                                 <div class="field is-grouped">
                                     <p class="control is-expanded has-icons-left">
-                                        <input id="name" type="text" class="input" name="name" value="{{ old('name') }}"
+                                        <input id="name" type="text"
+                                               class="input {{ $errors->has('name') ? ' is-danger' : '' }}" name="name"
+                                               value="{{ old('name') }}"
                                                placeholder="Name">
                                         <span class="icon is-small is-left">
-                                    <i class="fa fa-user"></i>
-                                </span>
+                                            <i class="fa fa-user"></i>
+                                        </span>
                                     </p>
+                                    @if ($errors->has('name'))
+                                        <p class="help is-danger">{{ $errors->first('name') }}</p>
+                                    @endif
                                 </div>
                             </div>
+
                         </div>
+
 
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
@@ -118,17 +132,16 @@
                             <div class="field-body">
                                 <div class="field ">
                                     <p class="control is-expanded has-icons-left has-icons-right">
-
                                         <input id="email" type="email" name="email" value="{{ old('email') }}"
-                                               class="input" type="email" placeholder="Email">
+                                               class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+                                               type="email" placeholder="Email">
                                         <span class="icon is-small is-left">
-                                  <i class="fa fa-envelope"></i>
-                                </span>
-                                        {{--<span class="icon is-small is-right">--}}
-                                        {{--<i class="fa fa-check"></i>--}}
-                                        {{--</span>--}}
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
                                     </p>
-                                    {{--<p class="help is-success">This email is correct</p>--}}
+                                    @if ($errors->has('email'))
+                                        <p class="help is-danger">{{ $errors->first('email') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -140,12 +153,16 @@
                             <div class="field-body">
                                 <div class="field is-grouped">
                                     <p class="control has-icons-left is-expanded">
-                                        <input id="password" type="password" name="password" class="input"
+                                        <input id="password" type="password" name="password"
+                                               class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
                                                placeholder="Password">
                                         <span class="icon is-small is-left">
-                            <i class="fa fa-lock"></i>
-                        </span>
+                                            <i class="fa fa-lock"></i>
+                                        </span>
                                     </p>
+                                    @if ($errors->has('password'))
+                                        <p class="help is-danger">{{ $errors->first('password') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -157,12 +174,14 @@
                             <div class="field-body">
                                 <div class="field is-grouped">
                                     <p class="control has-icons-left is-expanded">
-                                        <input id="password-confirm" name="password_confirmation" class="input"
+                                        <input id="password-confirm" name="password_confirmation"
+                                               class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
                                                type="password" placeholder="Confirm Password">
                                         <span class="icon is-small is-left">
                             <i class="fa fa-lock"></i>
                         </span>
                                     </p>
+
                                 </div>
                             </div>
                         </div>
@@ -174,12 +193,16 @@
                             <div class="field-body">
                                 <div class="field is-grouped">
                                     <p class="control has-icons-left is-expanded">
-                                        <input id="budgetStartDay" name="budgetStartDay" class="input"
+                                        <input id="budgetStartDay" name="budgetStartDay"
+                                               class="input {{ $errors->has('budgetStartDay') ? ' is-danger' : '' }}"
                                                type="text" placeholder="Day of Month, i.e. 25th">
                                         <span class="icon is-small is-left">
-                            <i class="fa fa-lock"></i>
-                        </span>
+                                            <i class="fa fa-lock"></i>
+                                        </span>
                                     </p>
+                                    @if ($errors->has('budgetStartDay'))
+                                        <p class="help is-danger">{{ $errors->first('budgetStartDay') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
