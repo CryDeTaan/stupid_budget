@@ -44,7 +44,7 @@ class ExpensesController extends Controller
         $categories = Category::with('subcategory')->where('user_id', auth()->id())->get();
         $accounts = Account::where('user_id', auth()->id())->get();
 //        return $accounts;
-        return view('expenses.create', compact('categories', $categories, 'accounts', $accounts));
+//        return view('expenses.create', compact('categories', $categories, 'accounts', $accounts));
 
     }
 

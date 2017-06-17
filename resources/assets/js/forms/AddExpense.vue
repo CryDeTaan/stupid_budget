@@ -90,7 +90,7 @@
             Account.all()
                 .then(({data}) => this.accounts = data);
             Category.all()
-                .then(({data}) => this.categories = data);
+                .then(({data}) => this.categories = data[0]);
         },
 
         methods: {
