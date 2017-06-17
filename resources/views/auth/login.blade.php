@@ -81,14 +81,11 @@
                                         <button type="submit" class="button is-primary">Login</button>
                                     </p>
                                     <p class="control">
-                                        <button class="button is-link">Cancel</button>
+                                        <button class="button is-link"><a href="/password/reset">Forgot Password</a>
+                                        </button>
                                     </p>
                                 </div>
                             </div>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
                         </div>
                     </form>
                 </div>
@@ -178,10 +175,9 @@
                                                class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
                                                type="password" placeholder="Confirm Password">
                                         <span class="icon is-small is-left">
-                            <i class="fa fa-lock"></i>
-                        </span>
+                                            <i class="fa fa-lock"></i>
+                                        </span>
                                     </p>
-
                                 </div>
                             </div>
                         </div>
@@ -215,9 +211,6 @@
                                 <div class="field is-grouped">
                                     <p class="control">
                                         <button type="submit" class="button is-primary">Sign up</button>
-                                    </p>
-                                    <p class="control">
-                                        <button class="button is-link">Cancel</button>
                                     </p>
                                 </div>
                             </div>

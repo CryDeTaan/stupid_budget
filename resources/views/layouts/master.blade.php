@@ -31,7 +31,7 @@
 
 <section class="section">
 
-    @if (Request::is('login') or Request::is('register'))
+    @if (Request::is('login') or Request::is('register') or Request::is('password/*'))
         @yield('content')
     @else
         @include('layouts.app')

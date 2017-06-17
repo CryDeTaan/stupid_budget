@@ -2,7 +2,7 @@
     <nav class="nav">
         <div class="nav-left">
             <a class="nav-item">
-                <img src="images/living_stratus_gradient.png" alt="Logo">
+                <img src="/images/living_stratus_gradient.png" alt="Logo">
             </a>
         </div>
 
