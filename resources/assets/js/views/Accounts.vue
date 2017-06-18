@@ -31,7 +31,7 @@
                         <tr>
                             <td></td>
                             <td>Total</td>
-                            <td>{{ accountsTotal }}</td>
+                            <td>{{ accountsTotal | currency }}</td>
                             <td></td>
                         </tr>
                         </tfoot>
@@ -39,7 +39,7 @@
                         <tr v-for="account in accounts" :key="account.id">
                             <td class="is-narrow">{{ account.accountName }}</td>
                             <td class="is-narrow">{{ account.accountType }}</td>
-                            <td class="is-narrow">{{ account.balance }}</td>
+                            <td class="is-narrow">{{ account.balance | currency }}</td>
                             <td>
                                 <a style="text-decoration: none" @click="viewAccount(account)">
                                     <span class="icon is-small">
@@ -88,6 +88,12 @@
                 showViewAccountModal: false,
             }
 
+        },
+
+        filters: {
+            currency(amount) {
+                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+            }
         },
 
         created() {

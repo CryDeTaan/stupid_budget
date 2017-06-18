@@ -27,7 +27,7 @@
                             <td class="is-narrow">{{ income.created_at | date }}</td>
                             <td class="is-narrow">{{ income.incomeDescription }}</td>
                             <td class="is-narrow">{{ income.account.accountName }}</td>
-                            <td class="is-narrow">{{ income.amount }}</td>
+                            <td class="is-narrow">{{ income.amount | currency }}</td>
 
                             <td>
                                 <a style="text-decoration: none" @click="viewIncome(income)">
@@ -80,6 +80,10 @@
         filters: {
             date(created_at){
                 return moment(created_at, 'YYYY-MM-DD').format('DD-MM-YYYY');
+            },
+
+            currency(amount) {
+                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
             }
         },
 

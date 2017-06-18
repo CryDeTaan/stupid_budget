@@ -26,9 +26,10 @@
                             <div class="column" style="padding-top: 16px">
                                 <progress class="progress" :class=category.budgetProgress :value=category.categoryBudgetUsed :max=category.categoryBudget :title=category.categoryBudgetUsed></progress>
                             </div>
-                            <div class="column is-1 is-small">
+                            <div class="column is-2 is-small">
                                     <strong class="has-text-centered" style="font-size: 75%">
-                                    {{ category.categoryBudgetUsed }} / {{ category.categoryBudget }}
+                                        {{ category.categoryBudgetUsed | currency
+                                        }} / {{ category.categoryBudget | currency }}
                                     </strong>
                             </div>
                             <div class="column is-1">
@@ -62,9 +63,10 @@
                             <div class="column" style="padding-top: 17px">
                                 <progress class="progress" :class=subcategory.budgetProgress :value=subcategory.budgetUsed :max=subcategory.subcategoryBudget></progress>
                             </div>
-                            <div class="column is-1">
-                                <p class="has-text-centered"  style="font-size: 75%">
-                                    {{ subcategory.budgetUsed }} / {{ subcategory.subcategoryBudget }}
+                            <div class="column is-2">
+                                <p style="font-size: 75%">
+                                    {{ subcategory.budgetUsed | currency
+                                    }} / {{ subcategory.subcategoryBudget | currency }}
                                 </p>
                             </div>
                             <div class="column is-1">
@@ -125,6 +127,12 @@
                 showDeleteSubcategoryModal: false,
                 showViewCategoryModal: false,
                 showViewSubcategoryModal: false,
+            }
+        },
+
+        filters: {
+            currency(amount) {
+                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
             }
         },
 
