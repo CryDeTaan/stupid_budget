@@ -4304,6 +4304,9 @@ label.panel-block {
 .header {
   font-weight: bold; }
 
+.section {
+  min-height: 60vh; }
+
 .card {
   margin-bottom: 24px; }
 

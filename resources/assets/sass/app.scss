@@ -1,6 +1,5 @@
 // Import the initial vulma sass variables
 @import "../../../node_modules/bulma/sass/utilities/initial-variables";
-
 // Import the rest of Bulma
 @import "../../../node_modules/bulma/bulma";
 
@@ -13,6 +12,12 @@
 .header {
 
   font-weight: bold;
+
+}
+
+.section {
+
+  min-height: 60vh;
 
 }
 
