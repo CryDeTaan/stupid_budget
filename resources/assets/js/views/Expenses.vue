@@ -71,7 +71,7 @@
                             <td class="is-narrow">{{ expense.category.categoryName }}</td>
                             <td class="is-narrow">{{ expense.subcategory.subcategoryName }}</td>
                             <td class="is-narrow">{{ expense.account.accountName }}</td>
-                            <td class="is-narrow">{{ expense.amount }}</td>
+                            <td class="is-narrow">{{ expense.amount | currency }}</td>
 
                             <td>
                                 <a style="text-decoration: none" @click="viewExpense(expense)">
@@ -131,6 +131,10 @@
             },
             date30(date){
                 return moment(date, 'YYYY-MM-DD').subtract(30, 'days').format('DD-MM-YYYY');
+            },
+            currency(amount) {
+
+                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             }
         },
 
@@ -171,7 +175,7 @@
             },
 
             viewedExpense(expenseUpdated) {
-                console.log(expenseUpdated[0].category.categoryName)
+                console.log(expenseUpdated[0].category.categoryName);
                 let expenseIndex = this.expenses
                     .findIndex(expense => expense.id === expenseUpdated[0].id);
                 this.$set(this.expenses, expenseIndex, expenseUpdated[0]);

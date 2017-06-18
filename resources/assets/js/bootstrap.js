@@ -4,13 +4,13 @@ import axios from 'axios';
 import Form from './utilities/Form';
 import moment from 'moment';
 
-
 window.Vue = Vue;
-Vue.use(VueRouter);
+Vue.use(
+    VueRouter
+);
 
 window.axios = axios;
 window.moment = moment;
-
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

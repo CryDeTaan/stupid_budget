@@ -1,20 +1,24 @@
 <template>
     <div class="columns">
 
-            <addAccount v-if="showAddAccountModal" @completed="addedAccount" @close="showAddAccountModal = false"></addAccount>
-            <deleteAccount v-if="showDeleteAccountModal" @completed="deletedAccount" @close="showDeleteAccountModal = false" :account="account"></deleteAccount>
-            <viewAccount v-if="showViewAccountModal" @completed="viewedAccount" @close="showViewAccountModal = false" :account="account"></viewAccount>
+        <addAccount v-if="showAddAccountModal" @completed="addedAccount"
+                    @close="showAddAccountModal = false"></addAccount>
+        <deleteAccount v-if="showDeleteAccountModal" @completed="deletedAccount" @close="showDeleteAccountModal = false"
+                       :account="account"></deleteAccount>
+        <viewAccount v-if="showViewAccountModal" @completed="viewedAccount" @close="showViewAccountModal = false"
+                     :account="account"></viewAccount>
 
-            <div class="message is-warning">
-                <div class="message-header">
-                    Accounts details
-                    <a class="button is-warning is-inverted is-outlined" @click="showAddAccountModal = true" style="text-decoration: none">Add Account</a>
-                </div>
-                <div class="message-body">
+        <div class="message is-warning">
+            <div class="message-header">
+                Accounts details
+                <a class="button is-warning is-inverted is-outlined" @click="showAddAccountModal = true"
+                   style="text-decoration: none">Add Account</a>
+            </div>
+            <div class="message-body">
 
-                    <div class="box">
+                <div class="box">
 
-                    <table class="table">
+                    <table class="table is-warning">
                         <thead>
                         <tr>
                             <th class="is-narrow">Account</th>
@@ -23,6 +27,14 @@
                             <th class="is-narrow"></th>
                         </tr>
                         </thead>
+                        <tfoot class="is-warning">
+                        <tr>
+                            <td></td>
+                            <td>Total</td>
+                            <td>{{ accountsTotal }}</td>
+                            <td></td>
+                        </tr>
+                        </tfoot>
                         <tbody>
                         <tr v-for="account in accounts" :key="account.id">
                             <td class="is-narrow">{{ account.accountName }}</td>
@@ -44,11 +56,11 @@
                         </tr>
                         </tbody>
                     </table>
-                    </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
 </template>
 
 <script>
@@ -73,7 +85,7 @@
                 account: [],
                 showAddAccountModal: false,
                 showDeleteAccountModal: false,
-                showViewAccountModal: false
+                showViewAccountModal: false,
             }
 
         },
@@ -82,6 +94,15 @@
             Account.all()
                 .then(({data}) => this.accounts = data);
         },
+
+        computed: {
+            accountsTotal: function () {
+                return this.accounts.reduce(function (total, account) {
+                    return total + +account.balance
+                }, 0)
+            }
+        },
+
         methods: {
             addedAccount(account) {
 //                account = account.pop();
@@ -90,7 +111,7 @@
             },
 
             deleteAccount(account) {
-                this.$set(this.account,0,account);
+                this.$set(this.account, 0, account);
                 this.showDeleteAccountModal = true
             },
 
@@ -102,7 +123,7 @@
             },
 
             viewAccount(account) {
-                this.$set(this.account,0,account);
+                this.$set(this.account, 0, account);
                 this.showViewAccountModal = true;
             },
 
