@@ -132,7 +132,7 @@
 
         filters: {
             currency(amount) {
-                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                return 'R ' + parseInt(amount).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             }
         },
 
