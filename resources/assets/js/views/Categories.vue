@@ -14,7 +14,7 @@
             <div class="message is-primary">
                 <div class="message-header">
                     Category Details <br/>
-                    Your budget starts on day {{ budgetStartDay }} of the month.
+                    Your budget starts on day {{ budgetStartDay | startDay }} of the month.
                     <a class="button is-primary is-inverted is-outlined" @click="showAddCategoryModal = true" style="text-decoration: none">Add Category</a>
                 </div>
                 <div class="message-body">
@@ -133,6 +133,10 @@
         filters: {
             currency(amount) {
                 return 'R ' + parseInt(amount).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            },
+
+            startDay(date) {
+                return date.toFixed();
             }
         },
 
