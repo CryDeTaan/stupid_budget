@@ -33,11 +33,6 @@
                                     </strong>
                             </div>
                             <div class="column is-1">
-                                <!--<a style="text-decoration: none" @click="toggleSubCategory(category.id)">
-                                    <span class="icon is-small">
-                                      <i class="fa fa-arrow-circle-down"></i>
-                                    </span>
-                                </a>-->
                                 <a style="text-decoration: none" @click="addSubCategory(category)">
                                     <span class="icon is-small">
                                       <i class="fa fa-plus-circle"></i>
