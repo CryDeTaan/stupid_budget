@@ -131,7 +131,7 @@
             },
 
             startDay(date) {
-                return date.toFixed();
+                return parseInt(date.toFixed());
             }
         },
 
