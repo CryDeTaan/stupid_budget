@@ -23,7 +23,7 @@
                         <p class="control">
                             <span class="select">
                               <select v-model="form.category_id" @change="categorySelected($event)">
-                                <option v-for="category in categories" :value="category.id">{{ category.categoryName
+                                <option v-for="category in categories[0]" :value="category.id">{{ category.categoryName
                                     }}</option>
                               </select>
                             </span>

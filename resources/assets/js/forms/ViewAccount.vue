@@ -7,7 +7,7 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-                Update the any of the following details :</br></br>
+                Update any of the following details :</br></br>
 
                 <form id="addAccount">
                     <div class="field">
