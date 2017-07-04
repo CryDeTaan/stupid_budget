@@ -24,25 +24,31 @@
         <!-- Add the modifier "is-active" to display it on mobile -->
         <div class="nav-right nav-menu">
             @if (Route::has('login'))
-                @if (Auth::check())
-                    <a class="nav-item">
-                        Logged in as &nbsp; <strong>{{ Auth::user()->name }}</strong>
-                    </a>
-                    <a class="nav-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
+            @if (Auth::check())
+            <a class="nav-item">
+                Logged in as &nbsp; <strong>{{ Auth::user()->name }}</strong>
+            </a>
+            <a class="nav-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
+                Logout
+            </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        {{ csrf_field() }}
-                    </form>
-                @else
-                    <a class="nav-item" href="{{ url('/login') }}">Login/Sign Up</a>
-                    {{--<a class="nav-item" href="{{ url('/register') }}">Register</a>--}}
-                @endif
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                {{ csrf_field() }}
+            </form>
+            @else
 
-            @endif
+            <div class="nav-item">
+                <a class="button is-primary is-outlined" href="{{ url('/login') }}">Login</a>
+            </div>
+            <div class="nav-item">
+                <a class="button is-primary" href="{{ url('/register') }}">Sign Up</a>
+            </div>
         </div>
-    </nav>
+        @endif
+
+        @endif
+</div>
+</nav>
 </div>
