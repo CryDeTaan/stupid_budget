@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Mail\verifyUser;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -40,6 +43,26 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        \Mail::to($user)->send(new verifyUser($user));
+
+        session()->flash('message', 'Please confirm your account before logging in.');
+
+        return redirect()->back();
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -59,7 +82,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \App\User
      */
     protected function create(array $data)
     {
@@ -70,4 +93,18 @@ class RegisterController extends Controller
             'budgetStartDay' => $data['budgetStartDay'],
         ]);
     }
+
+
+    public function verifyEmail($verifyToken)
+    {
+        $user = User::where('verifiedToken', $verifyToken)->firstOrFail();
+
+        $user->verifyAccount();
+
+        session()->flash('message', 'Account verified, please login');
+
+        return redirect('/login');
+    }
+
+
 }

@@ -8,6 +8,18 @@
                 <p class="title is-1 is-spaced has-text-centered">Login</p>
 
                 <div class="box">
+
+                    @if (session()->has('message'))
+
+                        <div>
+                            <span class="tag is-warning">{{ session('message') }}</span>
+                        </div>
+
+
+                    @endif
+
+
+
                     <form role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         <div class="field is-horizontal">

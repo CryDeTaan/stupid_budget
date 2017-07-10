@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/register/confirm/{verifyToken}', 'Auth\RegisterController@verifyEmail');
+
 //Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
