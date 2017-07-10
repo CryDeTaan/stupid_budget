@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'budgetStartDay',
+        'name', 'email', 'password', 'budgetStartDay', 'verifiedToken',
     ];
 
     /**
@@ -27,6 +27,26 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            $user->verifiedToken = str_random(64);
+        });
+    }
+
+    /**
+     * Confirm the user.
+     *
+     * @return void
+     */
+    public function verifyAccount()
+    {
+        $this->verified = true;
+        $this->verifiedToken = null;
+        $this->save();
+    }
 
     public function account()
     {
