@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+Use Mail;
 use App\User;
 use App\Mail\verifyUser;
 use Illuminate\Http\Request;
@@ -55,7 +56,7 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        \Mail::to($user)->send(new verifyUser($user));
+        Mail::to($user)->send(new verifyUser($user));
 
         session()->flash('message', 'Please confirm your account before logging in.');
 
