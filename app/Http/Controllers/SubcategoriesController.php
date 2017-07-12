@@ -31,13 +31,15 @@ class SubcategoriesController extends Controller
             'subcategoryBudget' => 'required|numeric',
         ]);
 
-        $subcategory = Subcategory::firstOrCreate([
+        Subcategory::firstOrCreate([
             'user_id' => auth()->id(),
             'category_id' => $category->id,
             'subcategoryName' => request('subcategoryName'),
             'subcategoryBudget' => request('subcategoryBudget')
         ]);
 
+        $subcategory = $this->index($category);
+        $subcategory = $subcategory->last();
         return $subcategory;
     }
 

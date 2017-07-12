@@ -108,7 +108,9 @@ class CategoriesController extends Controller
     {
         $categories = Category::where('user_id', auth()->id())->get();
 
-        return view('categories.create', compact('categories'));
+        return $categories;
+
+//        return view('categories.create', compact('categories'));
     }
 
     public function store()
@@ -123,13 +125,16 @@ class CategoriesController extends Controller
                 'categoryName' => 'required',
             ]);
             // Store Data only if the category and sub category pair is unique for the user data is not
-        $category = Category::firstOrCreate([
+        Category::firstOrCreate([
                 'user_id' => auth()->id(),
                 'categoryName' => request('categoryName'),
             ]);
-        // Redirect
-//        return redirect('/categories');
-        return $category;
+
+        $categorie = $this->index();
+        $categorie = $categorie[0];
+        $categorie = $categorie->last();
+
+        return $categorie;
     }
 
     public function update(Category $category)
