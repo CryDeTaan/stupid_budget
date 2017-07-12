@@ -9,16 +9,11 @@
 
                 <div class="box">
 
-                    @if (session()->has('message'))
-
-                        <div>
-                            <span class="tag is-warning">{{ session('message') }}</span>
+                    @if (session('message'))
+                        <div class="notification is-warning">
+                            {{ session('message') }}
                         </div>
-
-
                     @endif
-
-
 
                     <form role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
