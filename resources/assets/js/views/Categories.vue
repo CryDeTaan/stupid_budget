@@ -143,19 +143,6 @@
         },
         methods: {
 
-            addedCategory(category) {
-                this.categories.unshift(category);
-                this.showAddCategoryModal = false;
-            },
-
-//            toggleSubCategory(id) {
-//                var subCategories = document.getElementById(id)
-//                    .getElementsByClassName("selectorClass");
-//                for (var i = 0; i < subCategories.length; i++) {
-//                    subCategories[i].classList.toggle("toggleSubCategory");
-//                }
-//            },
-
             showSubCategory(id) {
                 let subCategories = document.getElementById(id)
                     .querySelectorAll(".selectorClass");
@@ -164,16 +151,27 @@
                 }
             },
 
+            addedCategory(category) {
+                this.categories.unshift(category);
+                this.showAddCategoryModal = false;
+            },
+
             addSubCategory(category) {
                 this.$set(this.category,0,category);
                 this.showAddSubCategoryModal = true;
-                            },
+            },
 
             addedSubcategory(subcategory) {
+
                 let categoryIndex = this.categories
                     .findIndex(category => category.id == subcategory.category_id);
                 let thisCategory = this.categories[categoryIndex];
+
                 thisCategory.subcategory.unshift(subcategory);
+
+                let newCategoryBudget = parseInt(thisCategory.categoryBudget)+parseInt(subcategory.subcategoryBudget);
+                this.$set(thisCategory,'categoryBudget',newCategoryBudget);
+
                 this.showAddSubCategoryModal = false;
             },
 
@@ -207,14 +205,16 @@
             },
 
             viewCategory(category){
+                console.log(category);
                 this.$set(this.category,0,category);
                 this.showViewCategoryModal = true;
             },
 
             viewedCategory(categoryUpdated) {
                 let categoryIndex = this.categories
-                    .findIndex(category => category.id === categoryUpdated[0].id);
-                this.$set(this.categories, categoryIndex, categoryUpdated[0]);
+                    .findIndex(category => category.id === categoryUpdated.id);
+                let thisCategory = this.categories[categoryIndex];
+                this.$set(thisCategory, 'categoryName', categoryUpdated.categoryName);
                 this.showViewCategoryModal = false;
 
             },
@@ -226,11 +226,22 @@
 
             viewedSubcategory(subcategoryUpdated) {
                 let categoryIndex = this.categories
-                    .findIndex(category => category.id == subcategoryUpdated[0].category_id);
+                    .findIndex(category => category.id == subcategoryUpdated.category_id);
                 let thisCategory = this.categories[categoryIndex];
+
                 let subcategoryIndex = thisCategory.subcategory
-                    .findIndex(subcategory => subcategory.id === subcategoryUpdated[0].id);
-                this.$set(thisCategory.subcategory, subcategoryIndex, subcategoryUpdated[0]);
+                    .findIndex(subcategory => subcategory.id === subcategoryUpdated.id);
+                let thisSubcategory = thisCategory.subcategory[subcategoryIndex];
+
+                let newCategoryBudget = parseInt(thisCategory.categoryBudget)
+                    - parseInt(thisSubcategory.subcategoryBudget)
+                    + parseInt(subcategoryUpdated.subcategoryBudget);
+
+                this.$set(thisCategory, 'categoryBudget', newCategoryBudget);
+
+                this.$set(thisSubcategory, 'subcategoryName', subcategoryUpdated.subcategoryName);
+                this.$set(thisSubcategory, 'subcategoryBudget', subcategoryUpdated.subcategoryBudget);
+
                 this.showViewSubcategoryModal = false;
             },
 

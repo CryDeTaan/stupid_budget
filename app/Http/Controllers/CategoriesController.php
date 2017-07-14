@@ -18,10 +18,8 @@ class CategoriesController extends Controller
 
     public function index()
     {
-        //$budgetStartDayOfMonth = User::where('id', auth()->id())->pluck('budgetStartDayOfMonth');
-//        $budgetStartDayOfMonth = '02';
+
         $budgetStartDayOfMonth = User::where('id', auth()->id())->pluck('budgetStartDay')->first();
-//        return $budgetStartDayOfMonth;
 
         if (Carbon::now()->day >= $budgetStartDayOfMonth) {
             $budgetStart = date('Y-m-'.$budgetStartDayOfMonth);
@@ -29,7 +27,6 @@ class CategoriesController extends Controller
             $budgetStart = date('Y-m-'.$budgetStartDayOfMonth, strtotime(date('Y-m')." -1 month"));
         }
         $categories = Category::where('user_id', auth()->id())
-//            ->has('subcategory')
             ->with(['subcategory.expense' => function($query) {
                 $query->where('created_at', '>=', '2017-05-01');
             }])
@@ -98,10 +95,8 @@ class CategoriesController extends Controller
             }
         });
 
-
         return [$categories, $budgetStartDayOfMonth];
 
-//        return view('categories.index', compact('categories'));
     }
 
     public function create()
@@ -152,7 +147,7 @@ class CategoriesController extends Controller
                 'categoryName' => $categoryName
             ]);
 
-        $category = Category::where('id', $category->id)->get();
+        $category = Category::find($category->id);
 
         return $category;
 
@@ -163,7 +158,6 @@ class CategoriesController extends Controller
         $this->authorize('accessCategory', $category);
         $category->delete();
         event(new CategoryDeleted($category));
-//        return redirect('/categories');
     }
 
 }
