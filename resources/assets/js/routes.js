@@ -22,7 +22,7 @@ let routes = [
 
     },
     {
-        path: '/categories',
+        path: '/budget',
         component: require('./views/Categories.vue')
 
     }
