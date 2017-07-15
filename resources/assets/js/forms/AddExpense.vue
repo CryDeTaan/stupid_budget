@@ -19,7 +19,7 @@
                     <div class="field">
                         <label class="label">Category</label>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.category_id" @change="categorySelected($event)">
                                 <option v-for="category in categories" :value="category.id">{{ category.categoryName }}</option>
                               </select>
@@ -29,7 +29,7 @@
                     <div class="field">
                         <label class="label">Sub Category</label>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.subcategory_id">
                                 <option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
                               </select>
@@ -39,7 +39,7 @@
                     <div class="field">
                         <label class="label">Account</label>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.account_id">
                                 <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
                               </select>
