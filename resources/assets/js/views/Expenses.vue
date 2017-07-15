@@ -26,10 +26,16 @@
                             <div class="field is-grouped">
                                 <p class="control">
                                     <datepicker
+                                            id="datepicker"
                                             placeholder="Search From"
-                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            :config="{
+                                                dateFormat: 'Y-m-d',
+                                                altInput: true,
+                                                altFormat: 'd-m-Y',
+                                                static: true,
+                                                defaultDate: '2017-07-13'
+                                            }"
                                             v-model="form.fromDate">
-
                                     </datepicker>
                                 </p>
                                 <p class="control ">
@@ -118,6 +124,7 @@
             return {
                 expenses: [],
                 expense: [],
+                toets: '2017-07-13',
                 showAddExpenseModal: false,
                 showDeleteExpenseModal: false,
                 showViewExpenseModal: false,
@@ -145,10 +152,18 @@
 
         methods: {
 
+            onReady(){
+                console.log('test');
+                this.$set(this, 'toets', '2017-07-12');
+            },
+
             onSubmit() {
                 this.form
                     .post('/expenses')
                     .then(response => this.expenses = response);
+                console.log(this.form.fromDate);
+                new Datepicker.clear();
+//                this.$set(this, 'toets', this.form.fromDate);
             },
 
             addedExpense(expense) {

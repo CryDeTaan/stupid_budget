@@ -11,6 +11,40 @@
                 <a class="button is-success is-inverted is-outlined" @click="showAddIncomeModal = true" style="text-decoration: none">Add Income</a>
             </div>
             <div class="message-body">
+
+                <form>
+                    <div class="field is-horizontal is-clearfix">
+                        <!--<div class="field-label is-normal">
+                            <label class="label">Filter</label>
+                        </div>-->
+                        <div class="field-body">
+                            <div class="field is-grouped">
+                                <p class="control">
+                                    <datepicker
+                                            placeholder="Search From"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            v-model="form.fromDate">
+
+                                    </datepicker>
+                                </p>
+                                <p class="control ">
+                                    <datepicker
+                                            placeholder="Search To"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            v-model="form.toDate">
+                                    </datepicker>
+                                </p>
+                                <p class="control">
+                                    <a class="button is-success is-outlined" @click="onSubmit()"
+                                       style="text-decoration: none">Search Expense</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </form>
+
+
                 <div class="box">
                     <table class="table">
                         <thead>
@@ -57,13 +91,15 @@
     import addIncome from '../forms/AddIncome.vue';
     import deleteIncome from '../forms/DeleteIncome.vue'
     import viewIncome from '../forms/ViewIncome.vue'
+    import Datepicker from 'vue-bulma-datepicker'
 
     export default {
 
         components: {
             addIncome,
             deleteIncome,
-            viewIncome
+            viewIncome,
+            Datepicker
         },
 
         data() {
@@ -72,7 +108,8 @@
                 income: [],
                 showAddIncomeModal: false,
                 showDeleteIncomeModal: false,
-                showViewIncomeModal: false
+                showViewIncomeModal: false,
+                form: new Form({fromDate: '', toDate: ''})
             }
 
         },
@@ -82,9 +119,12 @@
                 return moment(created_at, 'YYYY-MM-DD').format('DD-MM-YYYY');
             },
 
+            date30(date){
+                return moment(date, 'YYYY-MM-DD').subtract(30, 'days').format('DD-MM-YYYY');
+            },
             currency(amount) {
                 return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-            }
+            },
         },
 
         created() {
