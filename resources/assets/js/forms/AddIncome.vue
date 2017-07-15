@@ -21,7 +21,7 @@
                     <div class="field">
                         <label class="label">Select Account</label>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth" >
                               <select v-model="form.account_id">
                                 <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
                               </select>
