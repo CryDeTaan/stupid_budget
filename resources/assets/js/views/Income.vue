@@ -35,7 +35,7 @@
                                     </datepicker>
                                 </p>
                                 <p class="control">
-                                    <a class="button is-success is-outlined" @click="onSubmit()"
+                                    <a class="button is-success is-outlined" @click="onSearch()"
                                        style="text-decoration: none">Search Expense</a>
                                 </p>
                             </div>
@@ -106,6 +106,8 @@
             return {
                 incomes: [],
                 income: [],
+                prevFromDate: '',
+                prevToDate: '',
                 showAddIncomeModal: false,
                 showDeleteIncomeModal: false,
                 showViewIncomeModal: false,
@@ -133,6 +135,26 @@
         },
 
         methods: {
+
+            onSearch() {
+
+                if (this.form.fromDate == "") {
+                    this.$set(this.form, 'fromDate', this.prevFromDate);
+                };
+
+                if (this.form.toDate == "") {
+                    this.$set(this.form, 'toDate', this.prevToDate);
+                };
+
+                this.form
+                    .post('/income')
+                    .then(response => this.incomes = response);
+
+                this.$set(this, 'prevFromDate', this.form.fromDate);
+                this.$set(this, 'prevToDate', this.form.toDate);
+
+            },
+
             addedIncome(income) {
                 income = income.shift();
                 this.incomes.unshift(income);
