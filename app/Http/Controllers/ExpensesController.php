@@ -27,7 +27,7 @@ class ExpensesController extends Controller
             $fromDate = request()->fromDate.' 00:00:00';
             $toDate = request()->toDate.' 23:59:59';
         }
-//        return $fromDate;
+
         $expenses = Expense::where('user_id', auth()->id())
                                 ->whereBetween('created_at', array($fromDate, $toDate))
                                 ->with('category', 'subcategory', 'account')

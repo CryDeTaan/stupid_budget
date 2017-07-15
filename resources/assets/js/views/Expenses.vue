@@ -40,7 +40,7 @@
                                     </datepicker>
                                 </p>
                                 <p class="control">
-                                    <a class="button is-danger is-outlined" @click="onSubmit()"
+                                    <a class="button is-danger is-outlined" @click="onSearch()"
                                        style="text-decoration: none">Search Expense</a>
                                 </p>
                             </div>
@@ -147,10 +147,7 @@
 
         methods: {
 
-            onSubmit() {
-
-                console.log(this.form.fromDate);
-                console.log(this.form.toDate);
+            onSearch() {
 
                 if (this.form.fromDate == "") {
                     this.$set(this.form, 'fromDate', this.prevFromDate);

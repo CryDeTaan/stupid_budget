@@ -18,8 +18,7 @@ class IncomesController extends Controller
 
     public function index()
     {
-
-        if (empty($_POST['fromDate']))
+        if (empty(request()->fromDate))
         {
             $fromDate = Carbon::today()->subDays(30);
             $toDate = Carbon::tomorrow();
@@ -28,18 +27,15 @@ class IncomesController extends Controller
             $toDate = request()->toDate.' 23:59:59';
         }
 
-        $incomes = Income::where('user_id', auth()->id())
+         $incomes = Income::where('user_id', auth()->id())
                             ->whereBetween('created_at', array($fromDate, $toDate))
                             ->with('account')
                             ->orderBy('created_at', 'desc')
                             ->get();
         return $incomes;
-        return view('incomes.index', compact('incomes'));
+//        return view('incomes.index', compact('incomes'));
 
     }
-
-
-
 
     public function create()
     {
