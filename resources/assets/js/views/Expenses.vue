@@ -28,20 +28,14 @@
                                     <datepicker
                                             id="datepicker"
                                             placeholder="Search From"
-                                            :config="{
-                                                dateFormat: 'Y-m-d',
-                                                altInput: true,
-                                                altFormat: 'd-m-Y',
-                                                static: true,
-                                                defaultDate: '2017-07-13'
-                                            }"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true }"
                                             v-model="form.fromDate">
                                     </datepicker>
                                 </p>
                                 <p class="control ">
                                     <datepicker
                                             placeholder="Search To"
-                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                            :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true }"
                                             v-model="form.toDate">
                                     </datepicker>
                                 </p>
@@ -124,7 +118,8 @@
             return {
                 expenses: [],
                 expense: [],
-                toets: '2017-07-13',
+                prevFromDate: '',
+                prevToDate: '',
                 showAddExpenseModal: false,
                 showDeleteExpenseModal: false,
                 showViewExpenseModal: false,
@@ -152,18 +147,26 @@
 
         methods: {
 
-            onReady(){
-                console.log('test');
-                this.$set(this, 'toets', '2017-07-12');
-            },
-
             onSubmit() {
+
+                console.log(this.form.fromDate);
+                console.log(this.form.toDate);
+
+                if (this.form.fromDate == "") {
+                    this.$set(this.form, 'fromDate', this.prevFromDate);
+                };
+
+                if (this.form.toDate == "") {
+                    this.$set(this.form, 'toDate', this.prevToDate);
+                };
+
                 this.form
                     .post('/expenses')
                     .then(response => this.expenses = response);
-                console.log(this.form.fromDate);
-                new Datepicker.clear();
-//                this.$set(this, 'toets', this.form.fromDate);
+
+                this.$set(this, 'prevFromDate', this.form.fromDate);
+                this.$set(this, 'prevToDate', this.form.toDate);
+
             },
 
             addedExpense(expense) {
