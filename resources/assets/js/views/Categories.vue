@@ -4,6 +4,8 @@
         <addCategory v-if="showAddCategoryModal" @completed="addedCategory" @close="showAddCategoryModal = false"></addCategory>
         <addSubCategory v-if="showAddSubCategoryModal" @completed="addedSubcategory" @close="showAddSubCategoryModal = false" :category="category"></addSubCategory>
 
+        <addSubcategoryExpense v-if="showAddSubcategoryExpenseModal" @completed="addedSubcategoryExpense" @close="showAddSubcategoryExpenseModal = false" :subcategory="subcategory"></addSubcategoryExpense>
+
         <deleteCategory v-if="showDeleteCategoryModal" @completed="deletedCategory" @close="showDeleteCategoryModal = false" :category="category"></deleteCategory>
         <viewCategory v-if="showViewCategoryModal" @completed="viewedCategory" @close="showViewCategoryModal = false" :category="category"></viewCategory>
 
@@ -65,8 +67,11 @@
                                 </p>
                             </div>
                             <div class="column is-1">
+                                <a style="text-decoration: none" @click="addSubcategoryExpense(subcategory)">
                                     <span class="icon is-small">
+                                      <i class="fa fa-plus-circle"></i>
                                     </span>
+                                </a>
                                 <a style="text-decoration: none" @click="viewSubcategory(subcategory)">
                                     <span class="icon is-small">
                                       <i class="fa fa-info-circle"></i>
@@ -93,6 +98,7 @@
     import Category from '../models/Category';
     import addCategory from '../forms/AddCategory.vue';
     import addSubCategory from '../forms/AddSubCategory.vue';
+    import addSubcategoryExpense from '../forms/AddSubCategoryExpense.vue';
     import deleteCategory from '../forms/DeleteCategory.vue';
     import deleteSubcategory from '../forms/DeleteSubcategory.vue';
     import viewCategory from '../forms/ViewCategory.vue';
@@ -103,6 +109,7 @@
         components: {
             addCategory,
             addSubCategory,
+            addSubcategoryExpense,
             deleteCategory,
             deleteSubcategory,
             viewCategory,
@@ -118,6 +125,7 @@
                 budgetStartDay: [],
                 showAddCategoryModal: false,
                 showAddSubCategoryModal: false,
+                showAddSubcategoryExpenseModal: false,
                 showDeleteCategoryModal: false,
                 showDeleteSubcategoryModal: false,
                 showViewCategoryModal: false,
@@ -175,6 +183,56 @@
                 this.showAddSubCategoryModal = false;
             },
 
+            addSubcategoryExpense(subcategory) {
+
+                this.$set(this.subcategory,0,subcategory);
+                this.showAddSubcategoryExpenseModal = true;
+
+            },
+
+            addedSubcategoryExpense(expense) {
+
+                let categoryIndex = this.categories
+                    .findIndex(category => category.id == expense.category_id);
+                let thisCategory = this.categories[categoryIndex];
+
+                let newCategoryBudgetUsed = parseInt(thisCategory.categoryBudgetUsed)+parseInt(expense.amount);
+                this.$set(thisCategory,'categoryBudgetUsed',newCategoryBudgetUsed);
+
+                let budgetProgressPerc = thisCategory.categoryBudgetUsed / thisCategory.categoryBudget;
+                switch (true) {
+                    case budgetProgressPerc <= 0.40:
+                        this.$set(thisCategory,'budgetProgress','is-success');
+                        break;
+                    case budgetProgressPerc <= 0.70:
+                        this.$set(thisCategory,'budgetProgress','is-warning');
+                        break;
+                    default:
+                        this.$set(thisCategory,'budgetProgress','is-danger');
+                }
+
+                let subcategoryIndex = thisCategory.subcategory
+                    .findIndex(subcategory => subcategory.id == expense.subcategory_id);
+                let thisSubcategory = thisCategory.subcategory[subcategoryIndex];
+
+                let newBudgetUsed = parseInt(thisSubcategory.budgetUsed)+parseInt(expense.amount);
+                this.$set(thisSubcategory,'budgetUsed',newBudgetUsed);
+
+                let subcatBudgetProgressPerc = thisSubcategory.budgetUsed / thisSubcategory.subcategoryBudget;
+                switch (true) {
+                    case subcatBudgetProgressPerc <= 0.40:
+                        this.$set(thisSubcategory,'budgetProgress','is-success');
+                        break;
+                    case subcatBudgetProgressPerc <= 0.70:
+                        this.$set(thisSubcategory,'budgetProgress','is-warning');
+                        break;
+                    default:
+                        this.$set(thisSubcategory,'budgetProgress','is-danger');
+                }
+
+                this.showAddSubcategoryExpenseModal = false;
+            },
+
             deleteCategory(category) {
                 this.$set(this.category,0,category);
                 this.showDeleteCategoryModal = true;
@@ -220,7 +278,7 @@
             },
 
             viewSubcategory(subcategory){
-                this.$set(this.subcategory,0,subcategory);
+                this.$set(this,'subcategory',subcategory);
                 this.showViewSubcategoryModal = true;
             },
 
