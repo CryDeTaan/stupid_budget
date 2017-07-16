@@ -46,10 +46,10 @@ class CategoriesController extends Controller
                     ->reduce(function($_, $subcategories) {
                         $budgetUsedPercentage = $subcategories->budgetUsed / $subcategories->subcategoryBudget;
                         switch (true) {
-                            case $budgetUsedPercentage <= .30:
+                            case $budgetUsedPercentage <= .40:
                                 $budgetProgress = 'is-success';
                                 break;
-                            case $budgetUsedPercentage <= .60:
+                            case $budgetUsedPercentage <= .70:
                                 $budgetProgress = 'is-warning';
                                 break;
                             default:
