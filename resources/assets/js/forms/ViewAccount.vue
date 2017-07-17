@@ -7,37 +7,35 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-                Update any of the following details :</br></br>
-
                 <form id="addAccount">
                     <div class="field">
-                        <label class="label">Update Account Name from: {{ account[0].accountName }}</label>
+                        <label class="label">Account Name:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountName">
+                            <input class="input" type="text" v-model="form.accountName" :placeholder="account.accountName">
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Description from: {{ account[0].accountDescription }} </label>
+                        <label class="label">Description:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountDescription">
+                            <input class="input" type="text" v-model="form.accountDescription" :placeholder="account.accountDescription">
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Account Type from: {{ account[0].accountType }}</label>
+                        <label class="label">Account Type:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountType">
+                            <input class="input" type="text" v-model="form.accountType" :placeholder="account.accountType">
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Account Balance from: {{ account[0].balance }}</label>
+                        <label class="label">Account Balance:</label>
                         <p class="control">
-                            <input class="input" type="number" step="any" v-model="form.balance">
+                            <input class="input" type="number" step="any" v-model="form.balance" :placeholder="account.balance">
                         </p>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-danger" @click="onSubmit(account[0].id)">Update Account</a>
+                <a type="submit" class="button is-warning" @click="onSubmit(account.id)">Update Account</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>

@@ -34,7 +34,7 @@
                     </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-danger" @click="onSubmit()">Add</a>
+                <a type="submit" class="button is-primary" @click="onSubmit()">Add</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>

@@ -9,59 +9,61 @@
             <section class="modal-card-body">
 
                 <form>
-
                     <div class="field">
-                        <label class="label">Update Expense Description from: {{ expense[0].expenseDescription
-                            }} </label>
+                        <label class="label">Expense Description:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.expenseDescription">
+                            <input class="input" type="text" v-model="form.expenseDescription" :placeholder="expense.expenseDescription">
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Expense Category from: {{ expense[0].category.categoryName
-                            }}</label>
+                        <label class="label">Select Expense Category:</label>
+                        <p class="help is-danger">
+                            Currently selected: {{ expense.category.categoryName }}
+                        </p>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.category_id" @change="categorySelected($event)">
-                                <option v-for="category in categories[0]" :value="category.id">{{ category.categoryName
-                                    }}</option>
+                                  <option v-for="category in categories[0]" :value="category.id">{{ category.categoryName}}</option>
                               </select>
                             </span>
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Expense Subcategory from: {{ expense[0].subcategory.subcategoryName
-                            }}</label>
+                        <label class="label">Select Expense Subcategory: {{ expense.subcategory.subcategoryName }}</label>
+                        <p class="help is-danger">
+                            Currently selected: {{ expense.subcategory.subcategoryName }}
+                        </p>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.subcategory_id">
-                                <option v-for="subcategory in subcategories"
-                                        :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
+                                  <option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
                               </select>
                             </span>
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update Expense Account from: {{ expense[0].account.accountName }}</label>
+                        <label class="label">Select Account:</label>
+                        <p class="help is-danger">
+                            Currently selected: {{ expense.account.accountName }}
+                        </p>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.account_id">
-                                <option v-for="account in accounts" :value="account.id">{{ account.accountName
-                                    }}</option>
+                                  <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
                               </select>
                             </span>
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Update the Expense Amount from: {{ expense[0].amount }}</label>
+                        <label class="label">Expense Amount:</label>
                         <p class="control">
-                            <input class="input" type="number" v-model="form.amount">
+                            <input class="input" type="number" v-model="form.amount" :placeholder="expense.amount">
                         </p>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-danger" @click="onSubmit(expense[0].id)">Update Expense</a>
+                <a type="submit" class="button is-danger" @click="onSubmit(expense.id)">Update Expense</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>

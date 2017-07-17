@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 let routes = [
     {
         path: '/',
-        component: require('./views/Dashboard.vue')
+        redirect: '/budget'
+        // component: require('./views/Dashboard.vue')
 
     },
     {
@@ -31,5 +32,7 @@ let routes = [
 
 export default new VueRouter({
     routes,
+    path: '/budget',
     linkActiveClass: 'is-active'
+
 });

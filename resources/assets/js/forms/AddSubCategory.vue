@@ -30,7 +30,7 @@
 
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-warning" @click="onSubmit(category[0].id)">Add</a>
+                <a type="submit" class="button is-primary" @click="onSubmit(category[0].id)">Add</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>
