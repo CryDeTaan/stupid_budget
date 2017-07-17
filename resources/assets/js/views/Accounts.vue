@@ -128,7 +128,7 @@
             },
 
             viewAccount(account) {
-                this.$set(this.account, 0, account);
+                this.$set(this, 'account', account);
                 this.showViewAccountModal = true;
             },
 

@@ -6,7 +6,7 @@ import moment from 'moment';
 
 window.Vue = Vue;
 Vue.use(
-    VueRouter
+    VueRouter,
 );
 
 window.axios = axios;

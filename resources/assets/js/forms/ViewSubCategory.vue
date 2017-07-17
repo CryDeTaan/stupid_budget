@@ -9,21 +9,21 @@
             <section class="modal-card-body">
                 <form>
                     <div class="field">
-                        <label class="label">Subcategory name</label>
+                        <label class="label">Subcategory Name:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.subcategoryName">
+                            <input class="input" type="text" v-model="form.subcategoryName" :placeholder="subcategory.subcategoryName">
                         </p>
                     </div>
                     <div class="field">
-                        <label class="label">Budget Amount</label>
+                        <label class="label">Budget Amount:</label>
                         <p class="control">
-                            <input class="input" type="number" v-model="form.subcategoryBudget">
+                            <input class="input" type="number" v-model="form.subcategoryBudget" :placeholder="subcategory.subcategoryBudget">
                         </p>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-warning" @click="onSubmit(subcategory[0].id)">Update</a>
+                <a type="submit" class="button is-primary" @click="onSubmit(subcategory.id)">Update</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>
@@ -32,7 +32,9 @@
 
 <script>
     export default {
+
         props: ['subcategory'],
+
         data() {
             return {
                 form: new Form({subcategoryName: '', subcategoryBudget: ''}),

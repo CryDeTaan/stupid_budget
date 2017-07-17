@@ -12,34 +12,37 @@
                 <form>
 
                     <div class="field">
-                        <label class="label">Update the Income Description from {{ income[0].incomeDescription }}</label>
+                        <label class="label">Income Description:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.incomeDescription">
+                            <input class="input" type="text" v-model="form.incomeDescription" :placeholder="income.incomeDescription">
                         </p>
                     </div>
 
                     <div class="field">
-                        <label class="label">Update the Account for the income from {{ income[0].accountName }}</label>
+                        <label class="label">Account:</label>
+                        <p class="help is-success">
+                            Currently selected: {{ income.account.accountName }}
+                        </p>
                         <p class="control">
                             <span class="select">
                               <select v-model="form.account_id">
-                                <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
+                                  <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
                               </select>
                             </span>
                         </p>
                     </div>
 
                     <div class="field">
-                        <label class="label">Update the Income Amount from {{ income[0].amount }}</label>
+                        <label class="label">Income Amount:</label>
                         <p class="control">
-                            <input class="input" type="number" v-model="form.amount">
+                            <input class="input" type="number" v-model="form.amount" :placeholder="income.amount">
                         </p>
                     </div>
 
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-success" @click="onSubmit(income[0].id)">Update Income</a>
+                <a type="submit" class="button is-success" @click="onSubmit(income.id)">Update Income</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>

@@ -1,27 +1,20 @@
 <template>
     <div class="columns">
 
-        <addExpense v-if="showAddExpenseModal" @completed="addedExpense"
-                    @close="showAddExpenseModal = false"></addExpense>
-        <deleteExpense v-if="showDeleteExpenseModal" @completed="deletedExpense" @close="showDeleteExpenseModal = false"
-                       :expense="expense"></deleteExpense>
-        <viewExpense v-if="showViewExpenseModal" @completed="viewedExpense" @close="showViewExpenseModal = false"
-                     :expense="expense"></viewExpense>
-
+        <addExpense v-if="showAddExpenseModal" @completed="addedExpense" @close="showAddExpenseModal = false"></addExpense>
+        <deleteExpense v-if="showDeleteExpenseModal" @completed="deletedExpense" @close="showDeleteExpenseModal = false" :expense="expense"></deleteExpense>
+        <viewExpense v-if="showViewExpenseModal" @completed="viewedExpense" @close="showViewExpenseModal = false" :expense="expense"></viewExpense>
 
         <div class="message is-danger">
             <div class="message-header">
                 Expense detail
-                <a class="button is-danger is-inverted is-outlined" @click="showAddExpenseModal = true"
-                   style="text-decoration: none">Add Expense</a>
+                <a class="button is-danger is-inverted is-outlined" @click="showAddExpenseModal = true" style="text-decoration: none">Add Expense</a>
             </div>
 
             <div class="message-body">
                 <form>
                     <div class="field is-horizontal is-clearfix">
-                        <!--<div class="field-label is-normal">
-                            <label class="label">Filter</label>
-                        </div>-->
+
                         <div class="field-body">
                             <div class="field is-grouped">
                                 <p class="control">
@@ -185,12 +178,11 @@
             },
 
             viewExpense(expense) {
-                this.$set(this.expense, 0, expense);
+                this.$set(this, 'expense', expense);
                 this.showViewExpenseModal = true;
             },
 
             viewedExpense(expenseUpdated) {
-                console.log(expenseUpdated[0].category.categoryName);
                 let expenseIndex = this.expenses
                     .findIndex(expense => expense.id === expenseUpdated[0].id);
                 this.$set(this.expenses, expenseIndex, expenseUpdated[0]);

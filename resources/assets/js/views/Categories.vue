@@ -263,7 +263,6 @@
             },
 
             viewCategory(category){
-                console.log(category);
                 this.$set(this.category,0,category);
                 this.showViewCategoryModal = true;
             },

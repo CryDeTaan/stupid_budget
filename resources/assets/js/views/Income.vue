@@ -174,7 +174,7 @@
             },
 
             viewIncome(income) {
-                this.$set(this.income,0,income);
+                this.$set(this,'income',income);
                 this.showViewIncomeModal = true;
             },
 

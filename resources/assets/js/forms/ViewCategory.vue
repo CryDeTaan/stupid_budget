@@ -7,19 +7,18 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-                Update the any of the following details :</br></br>
 
                 <form id="addAccount">
                     <div class="field">
-                        <label class="label">Update Account Name from: {{ category[0].categoryName }}</label>
+                        <label class="label">Account Name:</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.categoryName">
+                            <input class="input" type="text" v-model="form.categoryName" :placeholder=category[0].categoryName>
                         </p>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-danger" @click="onSubmit(category[0].id)">Update Category</a>
+                <a type="submit" class="button is-primary" @click="onSubmit(category[0].id)">Update Category</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>
