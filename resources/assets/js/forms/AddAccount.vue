@@ -12,25 +12,25 @@
                     <div class="field">
                         <label class="label">Name</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountName">
+                            <input class="input is-warning" type="text" v-model="form.accountName">
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Description</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountDescription">
+                            <input class="input is-warning" type="text" v-model="form.accountDescription">
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Type</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.accountType">
+                            <input class="input is-warning" type="text" v-model="form.accountType">
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Opening Balance</label>
                         <p class="control">
-                            <input class="input" type="number" step="any" v-model="form.openingBalance">
+                            <input class="input is-warning" type="number" step="any" v-model="form.openingBalance">
                         </p>
                     </div>
                 </form>

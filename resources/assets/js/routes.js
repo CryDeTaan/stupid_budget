@@ -32,7 +32,6 @@ let routes = [
 
 export default new VueRouter({
     routes,
-    path: '/budget',
     linkActiveClass: 'is-active'
 
 });
