@@ -4,7 +4,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Add Income</p>
+                <p class="modal-card-title">Update Income</p>
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
@@ -24,7 +24,7 @@
                             Currently selected: {{ income.account.accountName }}
                         </p>
                         <p class="control">
-                            <span class="select">
+                            <span class="select is-fullwidth">
                               <select v-model="form.account_id">
                                   <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
                               </select>

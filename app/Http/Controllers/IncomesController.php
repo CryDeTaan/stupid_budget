@@ -100,11 +100,23 @@ class IncomesController extends Controller
             $account_id = $income->account_id;
         } else {
             $account_id = request('account_id');
+
+            // Update old account balance
+            Account::find($income->account_id)->decrement('balance', $income->amount);
+
+            // Update new account balance
+            Account::find($account_id)->increment('balance', $income->amount);
+
         }
         if (is_null(request('amount'))) {
             $amount = $income->amount;
         } else {
             $amount = request('amount');
+
+            $diffAmount =  $income->amount - $amount;
+
+            Account::find($account_id)->decrement('balance', $diffAmount);
+
         }
 
         Income::where('id', $income->id)
@@ -114,7 +126,9 @@ class IncomesController extends Controller
                 'amount' => $amount
             ]);
 
-        $income = Income::where('id', $income->id)->with('account')->get();
+        $income = Income::where('id', $income->id)
+            ->with('account')
+            ->get();
 
         return $income;
     }

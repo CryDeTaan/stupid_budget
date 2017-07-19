@@ -135,7 +135,9 @@
 
         filters: {
             currency(amount) {
-                return 'R ' + parseInt(amount).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                let val = (amount/1).toFixed(2).replace('.', ',');
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+//                return 'R ' + parseInt(amount).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             },
 
             startDay(date) {
