@@ -125,7 +125,9 @@
                 return moment(date, 'YYYY-MM-DD').subtract(30, 'days').format('DD-MM-YYYY');
             },
             currency(amount) {
-                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                let val = (amount/1).toFixed(2).replace('.', ',');
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+//                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             },
         },
 

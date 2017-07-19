@@ -115,15 +115,28 @@ class ExpensesController extends Controller
         } else {
             $subcategory_id = request('subcategory_id');
         }
+
         if (is_null(request('account_id'))) {
             $account_id = $expense->account_id;
         } else {
             $account_id = request('account_id');
+
+            // Update old account balance
+            Account::find($expense->account_id)->increment('balance', $expense->amount);
+
+            // Update new account balance
+            Account::find($account_id)->decrement('balance', $expense->amount);
+
         }
         if (is_null(request('amount'))) {
             $amount = $expense->amount;
         } else {
             $amount = request('amount');
+
+            $diffAmount =  $expense->amount - $amount;
+
+            Account::find($account_id)->increment('balance', $diffAmount);
+
         }
 
         Expense::where('id', $expense->id)

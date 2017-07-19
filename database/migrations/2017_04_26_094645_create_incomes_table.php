@@ -18,7 +18,7 @@ class CreateIncomesTable extends Migration
             $table->integer('user_id')->index();
             $table->integer('account_id')->index();
             $table->string('incomeDescription');
-            $table->Integer('amount');
+            $table->decimal('amount', 20, 2);
             $table->timestamps();
         });
     }
