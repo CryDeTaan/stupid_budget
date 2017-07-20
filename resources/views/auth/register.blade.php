@@ -111,7 +111,7 @@
                                     <p class="control has-icons-left is-expanded">
                                         <input id="budgetStartDay" name="budgetStartDay"
                                                class="input {{ $errors->has('budgetStartDay') ? ' is-danger' : '' }}"
-                                               type="text" placeholder="Day of Month, i.e. 25">
+                                               type="number" placeholder="Day of Month, i.e. '25'" min="1" max="31">
                                         <span class="icon is-small is-left">
                                             <i class="fa fa-lock"></i>
                                         </span>
