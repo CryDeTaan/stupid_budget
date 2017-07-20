@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->integer('budgetStartDay');
             $table->string('email')->unique();
             $table->string('password');
-//            $table->boolean('verified')->default(false);
-//            $table->string('verifiedToken')->nullable();
+            $table->boolean('verified')->default(false);
+            $table->string('verifiedToken')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
