@@ -69,12 +69,12 @@
                             <td>
                                 <a style="text-decoration: none" @click="viewExpense(expense)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-info-circle"></i>
+                                      <i class="fa fa-wrench"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="deleteExpense(expense)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-times-circle"></i>
+                                      <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
                             </td>
@@ -132,7 +132,6 @@
                 let val = (amount/1).toFixed(2).replace('.', ',');
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-//                return 'R ' + amount.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             }
         },
 

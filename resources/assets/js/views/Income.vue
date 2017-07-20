@@ -66,12 +66,12 @@
                             <td>
                                 <a style="text-decoration: none" @click="viewIncome(income)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-info-circle"></i>
+                                      <i class="fa fa-wrench"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="deleteIncome(income)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-times-circle"></i>
+                                      <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
                             </td>

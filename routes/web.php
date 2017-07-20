@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +47,7 @@ Route::get('/categories/create', 'CategoriesController@create');
 Route::post('/categories/create', 'CategoriesController@store');
 Route::put('/categories/{category}', 'CategoriesController@update');
 Route::delete('/categories/{category}', 'CategoriesController@destroy');
+Route::put('/categories/jouma/budget', 'CategoriesController@updatebudget');
 
 Route::get('/subcategories/{category}', 'SubcategoriesController@index');
 Route::post('/subcategories/create', 'SubcategoriesController@store');

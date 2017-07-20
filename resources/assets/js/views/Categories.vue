@@ -12,11 +12,20 @@
         <deleteSubcategory v-if="showDeleteSubcategoryModal" @completed="deletedSubcategory" @close="showDeleteSubcategoryModal = false" :subcategory="subcategory"></deleteSubcategory>
         <viewSubcategory v-if="showViewSubcategoryModal" @completed="viewedSubcategory" @close="showViewSubcategoryModal = false" :subcategory="subcategory"></viewSubcategory>
 
+        <viewBudgetStartDay v-if="showViewBudgetStartDayModal" @completed="viewedBudgetStartDay" @close="showViewBudgetStartDayModal = false" :budgetStartDay="budgetStartDay"></viewBudgetStartDay>
+
         <div class="column">
             <div class="message is-primary">
                 <div class="message-header">
+                    <div>
                     Category Details <br/>
-                    Your budget starts on day {{ budgetStartDay }} of the month.
+                        Monthly budget start on day: {{ budgetStartDay }}
+                        <a style="text-decoration: none" @click="viewBudgetStartDay(budgetStartDay)">
+                            <span class="icon is-small">
+                                <i class="fa fa-wrench"></i>
+                            </span>
+                        </a>
+                </div>
                     <a class="button is-primary is-inverted is-outlined" @click="showAddCategoryModal = true" style="text-decoration: none">Add Category</a>
                 </div>
                 <div class="message-body">
@@ -37,17 +46,17 @@
                             <div class="column is-1">
                                 <a style="text-decoration: none" @click="addSubCategory(category)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-plus-circle"></i>
+                                      <i class="fa fa-plus"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="viewCategory(category)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-info-circle"></i>
+                                      <i class="fa fa-wrench"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="deleteCategory(category)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-times-circle"></i>
+                                      <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
                             </div>
@@ -69,17 +78,17 @@
                             <div class="column is-1">
                                 <a style="text-decoration: none" @click="addSubcategoryExpense(subcategory)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-plus-circle"></i>
+                                      <i class="fa fa-plus"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="viewSubcategory(subcategory)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-info-circle"></i>
+                                      <i class="fa fa-wrench"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="deleteSubcategory(subcategory)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-times-circle"></i>
+                                      <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
                                 <span class="icon is-small">
@@ -103,6 +112,7 @@
     import deleteSubcategory from '../forms/DeleteSubcategory.vue';
     import viewCategory from '../forms/ViewCategory.vue';
     import viewSubcategory from '../forms/ViewSubCategory.vue';
+    import viewBudgetStartDay from '../forms/ViewBudgetStartDay.vue';
 
     export default {
 
@@ -113,7 +123,8 @@
             deleteCategory,
             deleteSubcategory,
             viewCategory,
-            viewSubcategory
+            viewSubcategory,
+            viewBudgetStartDay
         },
 
         data() {
@@ -130,6 +141,7 @@
                 showDeleteSubcategoryModal: false,
                 showViewCategoryModal: false,
                 showViewSubcategoryModal: false,
+                showViewBudgetStartDayModal: false,
             }
         },
 
@@ -152,6 +164,16 @@
                 .then(({data}) => this.budgetStartDay = data[1]);
         },
         methods: {
+
+            viewBudgetStartDay() {
+              this.showViewBudgetStartDayModal = true;
+            },
+
+            viewedBudgetStartDay(categories) {
+                this.$set(this,'budgetStartDay',categories[1]);
+                this.showViewBudgetStartDayModal = false;
+                this.$set(this,'categories',categories[0]);
+            },
 
             showSubCategory(id) {
                 let subCategories = document.getElementById(id)
@@ -179,7 +201,8 @@
 
                 thisCategory.subcategory.unshift(subcategory);
 
-                let newCategoryBudget = parseInt(thisCategory.categoryBudget)+parseInt(subcategory.subcategoryBudget);
+                let newCategoryBudget = (parseFloat(thisCategory.categoryBudget) + parseFloat(subcategory.subcategoryBudget)).toFixed(2);
+
                 this.$set(thisCategory,'categoryBudget',newCategoryBudget);
 
                 this.showAddSubCategoryModal = false;
@@ -198,7 +221,7 @@
                     .findIndex(category => category.id == expense.category_id);
                 let thisCategory = this.categories[categoryIndex];
 
-                let newCategoryBudgetUsed = parseInt(thisCategory.categoryBudgetUsed)+parseInt(expense.amount);
+                let newCategoryBudgetUsed = (parseFloat(thisCategory.categoryBudgetUsed)+parseFloat(expense.amount)).toFixed(2);
                 this.$set(thisCategory,'categoryBudgetUsed',newCategoryBudgetUsed);
 
                 let budgetProgressPerc = thisCategory.categoryBudgetUsed / thisCategory.categoryBudget;
@@ -217,7 +240,7 @@
                     .findIndex(subcategory => subcategory.id == expense.subcategory_id);
                 let thisSubcategory = thisCategory.subcategory[subcategoryIndex];
 
-                let newBudgetUsed = parseInt(thisSubcategory.budgetUsed)+parseInt(expense.amount);
+                let newBudgetUsed = (parseFloat(thisSubcategory.budgetUsed) + parseFloat(expense.amount)).toFixed(2);
                 this.$set(thisSubcategory,'budgetUsed',newBudgetUsed);
 
                 let subcatBudgetProgressPerc = thisSubcategory.budgetUsed / thisSubcategory.subcategoryBudget;
@@ -252,14 +275,22 @@
                 this.showDeleteSubcategoryModal = true;
             },
 
-            deletedSubcategory(subcategoryId) {
+            deletedSubcategory(delSubcategory) {
                 let categoryIndex = this.categories
                     .findIndex(category => category.id == this.subcategory[0].category_id);
 
-                this.categories[categoryIndex].subcategory = this.categories[categoryIndex].subcategory
+                let thisCategory = this.categories[categoryIndex];
+
+                thisCategory.subcategory = this.categories[categoryIndex].subcategory
                     .filter(function (subcategory) {
-                        return subcategory.id != subcategoryId;
+                        return subcategory.id != delSubcategory.id;
                     });
+
+                let newBudgetUsed = (parseFloat(thisCategory.categoryBudgetUsed) - parseFloat(delSubcategory.budgetUsed)).toFixed(2);
+                this.$set(thisCategory,'categoryBudgetUsed',newBudgetUsed);
+
+                let newBudget = (parseFloat(thisCategory.categoryBudget) - parseFloat(delSubcategory.subcategoryBudget)).toFixed(2);
+                this.$set(thisCategory,'categoryBudget',newBudget);
 
                 this.showDeleteSubcategoryModal = false;
             },
