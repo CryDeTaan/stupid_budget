@@ -43,12 +43,12 @@
                             <td>
                                 <a style="text-decoration: none" @click="viewAccount(account)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-info-circle"></i>
+                                      <i class="fa fa-wrench"></i>
                                     </span>
                                 </a>
                                 <a style="text-decoration: none" @click="deleteAccount(account)">
                                     <span class="icon is-small">
-                                      <i class="fa fa-times-circle"></i>
+                                      <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
 

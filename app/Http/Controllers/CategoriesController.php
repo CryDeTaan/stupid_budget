@@ -26,14 +26,15 @@ class CategoriesController extends Controller
         } else {
             $budgetStart = date('Y-m-'.$budgetStartDayOfMonth, strtotime(date('Y-m')." -1 month"));
         }
+
         $categories = Category::where('user_id', auth()->id())
-            ->with(['subcategory.expense' => function($query) {
-                $query->where('created_at', '>=', '2017-05-01');
+            ->with(['subcategory.expense' => function($query) use ($budgetStart) {
+                $query->where('created_at', '>=', $budgetStart);
             }])
             ->get()
-            ->map(function ($category, $_) use ($budgetStart){
+            ->map(function ($category, $_) {
                 $category->subcategory
-                    ->reduce(function($_, $subcategories) use ($budgetStart){
+                    ->reduce(function($_, $subcategories) {
                         return $subcategories->budgetUsed = $subcategories->expense
                             ->reduce(function($carry, $expenses) {
                                 return $carry + $expenses->amount;
@@ -158,6 +159,31 @@ class CategoriesController extends Controller
         $this->authorize('accessCategory', $category);
         $category->delete();
         event(new CategoryDeleted($category));
+    }
+
+    public function updatebudget()
+    {
+
+
+        // Validate Request
+        $this->validate(request(), [
+            'budgetStartDay' => 'required|numeric|min:1|max:31',
+        ]);
+
+        // Update
+        User::where('id', auth()->id())
+            ->update([
+                'budgetStartDay' => request('budgetStartDay'),
+            ]);
+
+        $budgetStartDay = User::where('id', auth()->id())
+            ->pluck('budgetStartDay')
+            ->first();
+//            pluck('budgetStartDay');
+
+        // Return Budget Start Day
+        return $this->index();
+
     }
 
 }

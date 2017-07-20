@@ -12,7 +12,7 @@
                 {{ subcategory[0].subcategoryName }}</br>
             </section>
             <footer class="modal-card-foot">
-                <a type="submit" class="button is-danger" @click="onSubmit(subcategory[0].id)">Delete Subcategory</a>
+                <a type="submit" class="button is-danger" @click="onSubmit(subcategory[0])">Delete Subcategory</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>
@@ -23,9 +23,9 @@
     export default {
         props: ['subcategory'],
         methods: {
-            onSubmit(subcategoryId) {
-                axios.delete('/subcategories/' + subcategoryId);
-                this.$emit('completed', subcategoryId);
+            onSubmit(subcategory) {
+                axios.delete('/subcategories/' + subcategory.id);
+                this.$emit('completed', subcategory);
             }
         }
     }
