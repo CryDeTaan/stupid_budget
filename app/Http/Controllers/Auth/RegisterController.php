@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -58,7 +58,7 @@ class RegisterController extends Controller
 
         Mail::to($user)->send(new verifyUser($user));
 
-        session()->flash('message', 'Please confirm your account before logging in.');
+        session()->flash('message', 'Please check your email to confirm your account before logging in.');
 
         return redirect()->back();
     }
@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'budgetStartDay' => 'required|min:1|max:31',
+            'budgetStartDay' => 'required|numeric|min:1|max:31',
         ]);
     }
 
