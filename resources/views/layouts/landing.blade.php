@@ -1,16 +1,44 @@
 <div class="columns">
     <div class="column">
-        <div class="box">
-            <div class="media-content">
-                <div class="content">
+        <div class="heading-left" id="heading1">
+            <p> Accounts </p>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        <div class="heading-right" id="heading3">
+            <p> Income </p>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        <div class="heading-left" id="heading4">
+            <p> Budget </p>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        <div class="heading-right" id="heading5">
+            <p> Expenses </p>
+        </div>
+    </div>
+</div>
 
-                    <p class="header"> Stupid Budget </p>
+<div class="columns">
+    <div class="column">
+        <div class="media-content">
+            <div class="content">
 
-                    Have you ever heard of <em>Keep It Simple Stupid</em>?<br>
-                    Keep It Simple Stupid, or K-I-S-S, was developed and used as a design principle by the US Navy in the 60s. Stupid Budget is digital proof that Simple is Better.<br>
-                    Manage your money, simply, with Stupid Budget.
+                <p class="header"> Stupid Budget </p>
 
-                </div>
+                Have you ever heard of <em>Keep It Simple Stupid</em>?<br>
+                Keep It Simple Stupid, or K-I-S-S, was developed and used as a design principle by the US Navy in the
+                60s. Stupid Budget is digital proof that Simple is Better.<br>
+                Manage your money, simply, with Stupid Budget.
+
             </div>
         </div>
     </div>
@@ -34,7 +62,8 @@
                 </div>
 
                 <div class="content">
-                    The <strong> Accounts </strong> page allows you to easily add access all of your banking or retail accounts on one view.
+                    The <strong> Accounts </strong> page allows you to easily add access all of your banking or retail
+                    accounts on one view.
                 </div>
             </div>
         </div>
@@ -52,7 +81,8 @@
                 </div>
 
                 <div class="content">
-                    The <strong> Expenses </strong> page helps you to track your spending and allows you to search for expenses by date.
+                    The <strong> Expenses </strong> page helps you to track your spending and allows you to search for
+                    expenses by date.
                 </div>
             </div>
         </div>
@@ -92,7 +122,8 @@
                 </div>
 
                 <div class="content">
-                    The (Stupid) <strong> Budget </strong> helps you to visually see your budget and spending with progress bars.
+                    The (Stupid) <strong> Budget </strong> helps you to visually see your budget and spending with
+                    progress bars.
                 </div>
             </div>
         </div>
