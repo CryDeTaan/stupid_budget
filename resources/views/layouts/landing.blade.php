@@ -1,32 +1,70 @@
+<!-- Headings to fade in from either side of the page - left, right, left, right. Use CSS or JS animation framework for this. Keep text static.-->
+<!-- Headings to be the same colour as their pages. -->
+
 <div class="columns">
     <div class="column">
-        <div class="heading-left" id="heading1">
-            <p> Accounts </p>
-        </div>
-    </div>
-</div>
-<div class="columns">
-    <div class="column">
-        <div class="heading-right" id="heading3">
-            <p> Income </p>
-        </div>
-    </div>
-</div>
-<div class="columns">
-    <div class="column">
-        <div class="heading-left" id="heading4">
+        <div class="center-heading heading-left budget" id="budget">
             <p> Budget </p>
         </div>
-    </div>
-</div>
-<div class="columns">
-    <div class="column">
-        <div class="heading-right" id="heading5">
-            <p> Expenses </p>
+        <div class="main-paragraph">
+            <p class="center-text">
+                The (Stupid) <strong class="budget"> Budget </strong> helps you to visually see your budget and spending
+                with
+                progress bars.
+            </p>
         </div>
     </div>
 </div>
 
+<div class="columns">
+    <div class="column">
+        <div class="center-heading heading-right accounts" id="accounts">
+            <p> Accounts </p>
+        </div>
+        <div class="main-paragraph">
+            <p class="center-text">
+                The <strong class="accounts"> Accounts </strong> page allows you to easily add access all of your
+                banking or retail
+                accounts on one view.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        <div class="center-heading heading-left income" id="income">
+            <p> Income </p>
+        </div>
+        <div class="main-paragraph">
+            <p class="center-text">
+                The <strong class="income"> Income </strong> page lets you add an income to your account(s) as you
+                receive payment.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        <div class="center-heading heading-right expenses" id="expenses">
+            <p> Expenses </p>
+        </div>
+        <div class="main-paragraph">
+            <p class="center-text">
+                The <strong class="expenses"> Expenses </strong> page helps you to track your spending and allows you to
+                search for
+                expenses by date.
+            </p>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<!-- Short description of what KISS is and where the name comes from-->
 <div class="columns">
     <div class="column">
         <div class="media-content">
@@ -44,89 +82,50 @@
     </div>
 </div>
 
+<br>
+<br>
+<br>
 
-<div class="columns">
-    <div class="column">
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by2">
-                    <img src="images/Accounts.png" alt="Image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
+<!-- Image gallery -->
 
-                    <div class="media-content">
-                        <p class="title is-4">Accounts</p>
-                    </div>
-                </div>
+<!-- images -->
+<div class="columns gallery" id="galleryHeight">
 
-                <div class="content">
-                    The <strong> Accounts </strong> page allows you to easily add access all of your banking or retail
-                    accounts on one view.
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by2">
-                    <img src="images/Expenses.png" alt="Image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-content">
-                        <p class="title is-4">Expenses</p>
-                    </div>
-                </div>
+    <figure class="image is-4by2 gallery-image">
+        <img src="images/Budget.png" alt="Image">
+    </figure>
 
-                <div class="content">
-                    The <strong> Expenses </strong> page helps you to track your spending and allows you to search for
-                    expenses by date.
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by2">
-                    <img src="images/Income.png" alt="Image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
 
-                    <div class="media-content">
-                        <p class="title is-4">Income</p>
-                    </div>
-                </div>
+    <figure class="image is-4by2 gallery-image">
+        <img src="images/Accounts.png" alt="Image">
+    </figure>
 
-                <div class="content">
-                    The <strong> Income </strong> page lets you add an income to your account(s) as you receive payment.
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by1">
-                    <img src="images/Budget.png" alt="Image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
+    <figure class="image is-4by2 gallery-image">
+        <img src="images/Income.png" alt="Image">
+    </figure>
 
-                    <div class="media-content">
-                        <p class="title is-4">Budget</p>
-                    </div>
-                </div>
+    <figure class="image is-4by2 gallery-image">
+        <img src="images/Expenses.png" alt="Image">
+    </figure>
 
-                <div class="content">
-                    The (Stupid) <strong> Budget </strong> helps you to visually see your budget and spending with
-                    progress bars.
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+<!-- control buttons -->
+<p class="field left-button" id="buttonLeft">
+    <a class="button is-primary" onclick="moveLeft()">
+    <span class="icon is-small">
+      <i class="fa fa-angle-left"></i>
+    </span>
+    </a>
+</p>
+<p class="field right-button" id="buttonRight">
+    <a class="button is-primary" onclick="moveRight()">
+    <span class="icon is-small">
+      <i class="fa fa-angle-right"></i>
+    </span>
+    </a>
+</p>
+
+
+
 
