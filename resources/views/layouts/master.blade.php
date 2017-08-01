@@ -57,5 +57,45 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
+<script type="text/javascript">
+
+    function executeTween() {
+        var leftHeading = document.getElementsByClassName('heading-left');
+        var rightHeading = document.getElementsByClassName('heading-right');
+
+        TweenMax.staggerFromTo(leftHeading, 2, {x:+300, opacity:0}, {x:0, opacity:1});
+        TweenMax.staggerFromTo(rightHeading, 2, {x:-300, opacity:0}, {x:0, opacity:1} );
+    }
+
+    function setButtonMargin() {
+
+        var galleryHeight = document.getElementById('galleryHeight').clientHeight;
+        var buttonHeight = document.getElementById('buttonLeft').clientHeight / 2;
+        var buttonLeftPosition = document.getElementById('buttonLeft');
+        var buttonRightPosition = document.getElementById('buttonRight');
+        var buttonMargin = -(galleryHeight / 2) - buttonHeight;
+
+        buttonLeftPosition.style.marginTop = buttonMargin + "px";
+        buttonRightPosition.style.marginTop = buttonMargin + "px";
+
+    }
+
+    function moveLeft() {
+        console.log('left')
+
+    }
+
+    function moveRight() {
+        console.log('right')
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        executeTween();
+        setButtonMargin();
+    }, false);
+
+</script>
+
 </body>
 </html>

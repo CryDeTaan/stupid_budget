@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import Form from './utilities/Form';
 import moment from 'moment';
+import { gsap, TweenMax } from 'gsap';
 
 window.Vue = Vue;
 Vue.use(
@@ -21,3 +22,5 @@ window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Form = Form;
+
+window.gsap = gsap;

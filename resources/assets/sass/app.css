@@ -4310,4 +4310,42 @@ label.panel-block {
 .card {
   margin-bottom: 24px; }
 
+.center-heading {
+  text-align: center;
+  font-size: 54px; }
+
+.center-text {
+  text-align: center;
+  cursor: pointer; }
+
+.accounts {
+  color: #ffdd57; }
+
+.income {
+  color: #23d160; }
+
+.budget {
+  color: #00d1b2; }
+
+.expenses {
+  color: #ff3860; }
+
+.left-button {
+  position: absolute;
+  left: 0; }
+
+.right-button {
+  position: absolute;
+  right: 0; }
+
+.gallery {
+  margin-bottom: 0px;
+  overflow: hidden; }
+
+.gallery-image {
+  padding: 40px;
+  display: none; }
+  .gallery-image:first-child {
+    display: block; }
+
 /*# sourceMappingURL=app.css.map */
