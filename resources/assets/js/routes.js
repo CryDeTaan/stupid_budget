@@ -3,8 +3,7 @@ import VueRouter from 'vue-router';
 let routes = [
     {
         path: '/',
-        redirect: '/budget'
-        // component: require('./views/Dashboard.vue')
+        component: require('./views/Dashboard.vue')
 
     },
     {
