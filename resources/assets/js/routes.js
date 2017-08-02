@@ -2,7 +2,7 @@ import VueRouter from 'vue-router';
 
 let routes = [
     {
-        path: '/',
+        path: '/dashboard',
         component: require('./views/Dashboard.vue')
 
     },
