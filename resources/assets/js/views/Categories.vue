@@ -158,11 +158,14 @@
         },
 
         created() {
+            let vm = this;
             Category.all()
-                .then(({data}) => this.categories = data[0]);
-            Category.all()
-                .then(({data}) => this.budgetStartDay = data[1]);
+                .then(function (response) {
+                    vm.categories = response.data[0];
+                    vm.budgetStartDay = response.data[1]
+                });
         },
+
         methods: {
 
             viewBudgetStartDay() {
