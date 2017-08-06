@@ -60,8 +60,8 @@
 <script type="text/javascript">
 
     function executeTween() {
-        var leftHeading = document.getElementsByClassName('heading-left');
-        var rightHeading = document.getElementsByClassName('heading-right');
+        let leftHeading = document.querySelectorAll('.heading-left');
+        let rightHeading = document.querySelectorAll('.heading-right');
 
         TweenMax.staggerFromTo(leftHeading, 2, {x:+300, opacity:0}, {x:0, opacity:1});
         TweenMax.staggerFromTo(rightHeading, 2, {x:-300, opacity:0}, {x:0, opacity:1} );
@@ -69,24 +69,86 @@
 
     function setButtonMargin() {
 
-        var galleryHeight = document.getElementById('galleryHeight').clientHeight;
-        var buttonHeight = document.getElementById('buttonLeft').clientHeight / 2;
-        var buttonLeftPosition = document.getElementById('buttonLeft');
-        var buttonRightPosition = document.getElementById('buttonRight');
-        var buttonMargin = -(galleryHeight / 2) - buttonHeight;
+        let galleryHeight = document.querySelector('#galleryHeight').clientHeight;
+        let buttonHeight = document.querySelector('#buttonLeft').clientHeight / 2;
+        let buttonLeftPosition = document.querySelector('#buttonLeft');
+        let buttonRightPosition = document.querySelector('#buttonRight');
+        let buttonMargin = -(galleryHeight / 2) - buttonHeight;
 
         buttonLeftPosition.style.marginTop = buttonMargin + "px";
         buttonRightPosition.style.marginTop = buttonMargin + "px";
 
     }
 
+    let images = document.querySelectorAll('.gallery-image');
+    let currentImage = 0;
+    let maxImage = images.length;
+    let imageWidth = (document.querySelector('#imageWidth').clientWidth + 2);
+    let gallery = document.querySelector('#galleryHeight');
+
+    console.log(maxImage + " maxImage");
+
     function moveLeft() {
-        console.log('left')
+
+        currentImage = currentImage > 0 ? currentImage - 1 : currentImage;
+
+
+//        console.log(currentImage + " currentImage left");
+
+        moveGalleryTrack();
+        toggleClass();
 
     }
 
     function moveRight() {
-        console.log('right')
+
+        currentImage = currentImage < maxImage ? currentImage + 1 : currentImage;
+
+//        console.log(currentImage + " currentImage right");
+
+        moveGalleryTrack();
+        toggleClass();
+    }
+
+    function moveGalleryTrack() {
+
+        if ( currentImage === maxImage ) {
+
+            currentImage--;
+
+        }
+
+        for (let i=0; i < maxImage; i++) {
+
+            images[i].removeAttribute('gallery-image--fade');
+
+        }
+
+//        console.log(imageWidth + " imageWidth");
+//        console.log(currentImage + " currentImage");
+
+        let pos = - (imageWidth * currentImage) + 'px';
+        console.log(imageWidth + " image width");
+        console.log(pos);
+
+        TweenMax.to(gallery, 1, {
+            x: pos,
+            onComplete: function() {
+                addFade();
+            }
+        })
+    }
+
+    function toggleClass() {
+
+        console.log('toggleClass');
+
+    }
+
+    function addFade() {
+
+        console.log('addFade');
+
     }
 
 

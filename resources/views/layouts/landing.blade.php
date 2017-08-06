@@ -91,7 +91,7 @@
 <!-- images -->
 <div class="columns gallery" id="galleryHeight">
 
-    <figure class="image is-4by2 gallery-image">
+    <figure class="image is-4by2 gallery-image" id="imageWidth">
         <img src="images/Budget.png" alt="Image">
     </figure>
 
