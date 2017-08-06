@@ -4339,13 +4339,18 @@ label.panel-block {
   right: 0; }
 
 .gallery {
-  margin-bottom: 0px;
-  overflow: hidden; }
+  margin-bottom: 0px !important;
+  width: 6000px; }
 
 .gallery-image {
   padding: 40px;
-  display: none; }
-  .gallery-image:first-child {
-    display: block; }
+  float: left;
+  transition: opacity 0.4s;
+  position: relative; }
+  .gallery-image--fade {
+    opacity: 0.5; }
+  .gallery-image--right {
+    position: relative;
+    z-index: 9999 !important; }
 
 /*# sourceMappingURL=app.css.map */
