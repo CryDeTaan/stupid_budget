@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
+use App\Subcategory;
 Use Mail;
 use App\User;
 use App\Mail\verifyUser;
@@ -60,7 +62,7 @@ class RegisterController extends Controller
 
         session()->flash('message', 'Please check your email to confirm your account before logging in.');
 
-        return redirect()->back();
+        return redirect('/register');
     }
 
     /**
@@ -101,6 +103,18 @@ class RegisterController extends Controller
         $user = User::where('verifiedToken', $verifyToken)->firstOrFail();
 
         $user->verifyAccount();
+
+        Category::create([
+            'user_id' => $user->id,
+            'categoryName' => 'Unplanned',
+        ]);
+
+        Subcategory::create([
+            'user_id' => $user->id,
+            'category_id' => '1',
+            'subcategoryName' => 'Unplanned',
+            'subcategoryBudget' => null
+        ]);
 
         session()->flash('message', 'Account verified, please login');
 

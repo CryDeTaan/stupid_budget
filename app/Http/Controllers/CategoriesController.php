@@ -31,6 +31,7 @@ class CategoriesController extends Controller
             ->with(['subcategory.expense' => function($query) use ($budgetStart) {
                 $query->where('created_at', '>=', $budgetStart);
             }])
+            ->where('categoryName', '!=', 'Unplanned')
             ->get()
             ->map(function ($category, $_) {
                 $category->subcategory
@@ -82,10 +83,10 @@ class CategoriesController extends Controller
             if ( !empty ( $category->categoryBudget ) ) {
                 $budgetUsedPercentage = $category->categoryBudgetUsed / $category->categoryBudget;
                 switch (true) {
-                    case $budgetUsedPercentage <= .30:
+                    case $budgetUsedPercentage <= .40:
                         $budgetProgress = 'is-success';
                         break;
-                    case $budgetUsedPercentage <= .60:
+                    case $budgetUsedPercentage <= .70:
                         $budgetProgress = 'is-warning';
                         break;
                     default:

@@ -21,7 +21,9 @@
                         <p class="control">
                             <span class="select is-fullwidth">
                               <select v-model="form.category_id" @change="categorySelected($event)">
-                                <option v-for="category in categories" :value="category.id">{{ category.categoryName }}</option>
+                                  <option value="Unplanned">Unplanned</option>
+                                <option v-for="category in categories" :value="category.id">{{ category.categoryName
+                                    }}</option>
                               </select>
                             </span>
                         </p>
@@ -31,7 +33,9 @@
                         <p class="control">
                             <span class="select is-fullwidth">
                               <select v-model="form.subcategory_id">
-                                <option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
+                                  <option value="Unplanned">Unplanned</option>
+                                <option v-for="subcategory in subcategories"
+                                        :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
                               </select>
                             </span>
                         </p>
@@ -41,7 +45,8 @@
                         <p class="control">
                             <span class="select is-fullwidth">
                               <select v-model="form.account_id">
-                                <option v-for="account in accounts" :value="account.id">{{ account.accountName }}</option>
+                                <option v-for="account in accounts" :value="account.id">{{ account.accountName
+                                    }}</option>
                               </select>
                             </span>
                         </p>

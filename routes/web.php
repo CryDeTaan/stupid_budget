@@ -53,3 +53,5 @@ Route::get('/subcategories/{category}', 'SubcategoriesController@index');
 Route::post('/subcategories/create', 'SubcategoriesController@store');
 Route::put('/subcategories/{subcategory}', 'SubcategoriesController@update');
 Route::delete('/subcategories/{subcategory}', 'SubcategoriesController@destroy');
+
+Route::get('dashboard/overview', 'OverviewController@index');

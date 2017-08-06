@@ -17,6 +17,27 @@ class ExpensesController extends Controller
         $this->middleware('auth');
     }
 
+    public function validator($iets)
+    {
+        dd($iets);
+        $this->validate($request,
+            [
+                'subcategory_id' =>
+                    array(
+                        'required',
+                        'regex:/^(\d*|Unplanned)$/u',
+                        'match_category'
+                    ),
+                'expenseDescription' => 'required',
+                'amount' => 'required|numeric',
+                'account_id' => 'required|numeric'
+            ],
+            [
+              'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
+            ]
+        );
+    }
+
     public function index()
     {
         if (empty(request()->fromDate))
@@ -48,44 +69,32 @@ class ExpensesController extends Controller
 
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        // Validate that subcategory is either a numeric or matches the string Unplanned.
+        $this->validator($request);
 
-        // Authorise account access.
+        // Set Variables
+        // Set $subcategory variable based on subcategory being an ID or the string 'Unplanned'
+        if (request()->subcategory_id === 'Unplanned') {
+            $subcategory = Subcategory::where('user_id', auth()->id())->first();
+        } else {
+            $subcategory = Subcategory::find(request()->subcategory_id);
+        }
+        // Set $account variable.
         $account = Account::find(request()->account_id);
-        $subcategory = Subcategory::find(request()->subcategory_id);
-//        dd($account, $subcategory);
+
+        // Authorise access to variables.
         $this->authorize('accessAccount', $account);
         $this->authorize('accessSubcategory', $subcategory);
-
-        /*
-       Receive Required Data
-       user_id: auth()->id()
-       expenseDescription: request()->expenseDescription
-       category_id: request()->category_id
-       account_id: request()->account_id
-       amount: request()->amount
-       */
-//        dd(auth()->id(),request()->expenseDescription, request()->category_id, request()->account_id, request()->amount);
-
-        $category_id = Subcategory::find(request()->subcategory_id)->category_id;
-
-
-        // Validate Data
-        $this->validate(request(), [
-            'expenseDescription' => 'required',
-            'amount' => 'required|numeric',
-            'subcategory_id' => 'required|numeric',
-            'account_id' => 'required|numeric'
-        ]);
 
         // Store Data
         Expense::create([
             'user_id' => auth()->id(),
             'expenseDescription' => request('expenseDescription'),
-            'account_id'=> request('account_id'),
-            'category_id'=> $category_id,
-            'subcategory_id'=> request('subcategory_id'),
+            'account_id'=> $account->id,
+            'category_id'=> $subcategory->category_id,
+            'subcategory_id'=> $subcategory->id,
             'amount' => request('amount')
         ]);
 
@@ -96,48 +105,55 @@ class ExpensesController extends Controller
         return redirect('/expenses');
     }
 
-    public function update(Expense $expense)
+    public function update(Request $request, Expense $expense)
     {
+        // Authorise access to the expense that will be updated.
         $this->authorize('accessExpense', $expense);
 
-        if (is_null(request('expenseDescription'))) {
-            $expenseDescription = $expense->expenseDescription;
-        } else {
+        // Set some variables that are required during the update
+        // The variables will be updated if the request includes the data to be updated.
+        $expenseDescription = $expense->expenseDescription;
+        $category_id = $expense->category_id;
+        $subcategory_id = $expense->subcategory_id;
+        $account_id = $expense->account_id;
+        $amount = $expense->amount;
+
+        // If request fields contains data, update variable based on the $request data.
+        if (!empty(request('expenseDescription'))) {
             $expenseDescription = request('expenseDescription');
         }
-        if (is_null(request('category_id'))) {
-            $category_id = $expense->category_id;
-        } else {
+
+        if (!empty(request('category_id'))) {
             $category_id = request('category_id');
         }
-        if (is_null(request('subcategory_id'))) {
-            $subcategory_id = $expense->subcategory_id;
-        } else {
+
+        if (!empty(request('subcategory_id'))) {
             $subcategory_id = request('subcategory_id');
         }
 
-        if (is_null(request('account_id'))) {
-            $account_id = $expense->account_id;
-        } else {
+        if (!empty(request('account_id'))) {
             $account_id = request('account_id');
-
             // Update old account balance
             Account::find($expense->account_id)->increment('balance', $expense->amount);
-
             // Update new account balance
             Account::find($account_id)->decrement('balance', $expense->amount);
-
         }
-        if (is_null(request('amount'))) {
-            $amount = $expense->amount;
-        } else {
+
+        if (!empty(request('amount'))) {
             $amount = request('amount');
-
             $diffAmount =  $expense->amount - $amount;
-
             Account::find($account_id)->increment('balance', $diffAmount);
-
         }
+
+        $collection = collect([
+            'expenseDescription' => $expenseDescription,
+            'category_id' => $category_id,
+            'subcategory_id' => $subcategory_id,
+            'account_id' => $account_id,
+            'amount' => $amount,
+        ]);
+
+        $this->validator($collection);
 
         Expense::where('id', $expense->id)
             ->update([
@@ -145,7 +161,7 @@ class ExpensesController extends Controller
                 'category_id' => $category_id,
                 'subcategory_id' => $subcategory_id,
                 'account_id' => $account_id,
-                'amount' => $amount,
+                'amount' => $amount
             ]);
 
         $expense = Expense::where('id', $expense->id)
