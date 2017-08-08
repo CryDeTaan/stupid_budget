@@ -16,6 +16,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Categories\CategoryDeleted' => [
             'App\Listeners\Categories\DeleteSubcategories',
         ],
+        'App\Events\Users\UserRegistered' => [
+            'App\Listeners\Users\SendConfirmationEmail',
+            'App\Listeners\Users\SendTelegramNotification',
+        ]
     ];
 
     /**

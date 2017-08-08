@@ -122,7 +122,7 @@ class CategoriesController extends Controller
                 'categoryName' => 'required',
             ]);
             // Store Data only if the category and sub category pair is unique for the user data is not
-        Category::firstOrCreate([
+        Category::create([
                 'user_id' => auth()->id(),
                 'categoryName' => request('categoryName'),
             ]);
@@ -164,8 +164,6 @@ class CategoriesController extends Controller
 
     public function updatebudget()
     {
-
-
         // Validate Request
         $this->validate(request(), [
             'budgetStartDay' => 'required|numeric|min:1|max:31',

@@ -19,7 +19,7 @@ class AccountsController extends Controller
 
         $accounts = Account::where('user_id', auth()->id())->with('expense', 'expense.category', 'income')->get();
         return $accounts;
-        return view('accounts.index', compact('accounts'));
+//        return view('accounts.index', compact('accounts'));
     }
 
     public function create()

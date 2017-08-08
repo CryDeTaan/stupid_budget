@@ -107,6 +107,7 @@
             },
 
             categorySelected(event) {
+                console.log("test");
                 Subcategory.all(event.target.value)
                     .then(({data}) => this.subcategories = data);
             }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Category;
+use App\Events\Users\UserRegistered;
 use App\Subcategory;
 Use Mail;
 use App\User;
@@ -58,7 +59,7 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        Mail::to($user)->send(new verifyUser($user));
+        event(new UserRegistered($user));
 
         session()->flash('message', 'Please check your email to confirm your account before logging in.');
 
