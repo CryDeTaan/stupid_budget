@@ -17,27 +17,6 @@ class ExpensesController extends Controller
         $this->middleware('auth');
     }
 
-    public function validator($iets)
-    {
-        dd($iets);
-        $this->validate($request,
-            [
-                'subcategory_id' =>
-                    array(
-                        'required',
-                        'regex:/^(\d*|Unplanned)$/u',
-                        'match_category'
-                    ),
-                'expenseDescription' => 'required',
-                'amount' => 'required|numeric',
-                'account_id' => 'required|numeric'
-            ],
-            [
-              'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
-            ]
-        );
-    }
-
     public function index()
     {
         if (empty(request()->fromDate))
@@ -69,10 +48,25 @@ class ExpensesController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store()
     {
         // Validate that subcategory is either a numeric or matches the string Unplanned.
-        $this->validator($request);
+        $this->validate(request(),
+            [
+                'subcategory_id' =>
+                    array(
+                        'required',
+                        'regex:/^(\d*|Unplanned)$/u',
+                        'match_category'
+                    ),
+                'expenseDescription' => 'required',
+                'amount' => 'required|numeric',
+                'account_id' => 'required|numeric'
+            ],
+            [
+                'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
+            ]
+        );
 
         // Set Variables
         // Set $subcategory variable based on subcategory being an ID or the string 'Unplanned'
@@ -105,8 +99,26 @@ class ExpensesController extends Controller
         return redirect('/expenses');
     }
 
-    public function update(Request $request, Expense $expense)
+    public function update(Expense $expense)
     {
+
+        // Validate that subcategory is either a numeric or matches the string Unplanned.
+        $this->validate(request(),
+            [
+                'subcategory_id' =>
+                    array(
+                        'nullable',
+                        'regex:/^(\d*|Unplanned)$/u',
+                        'match_category'
+                    ),
+                'amount' => 'numeric',
+                'account_id' => 'numeric'
+            ],
+            [
+                'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
+            ]
+        );
+
         // Authorise access to the expense that will be updated.
         $this->authorize('accessExpense', $expense);
 
@@ -144,16 +156,6 @@ class ExpensesController extends Controller
             $diffAmount =  $expense->amount - $amount;
             Account::find($account_id)->increment('balance', $diffAmount);
         }
-
-        $collection = collect([
-            'expenseDescription' => $expenseDescription,
-            'category_id' => $category_id,
-            'subcategory_id' => $subcategory_id,
-            'account_id' => $account_id,
-            'amount' => $amount,
-        ]);
-
-        $this->validator($collection);
 
         Expense::where('id', $expense->id)
             ->update([

@@ -177,6 +177,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Third-party Providers
+         */
+        NotificationChannels\Telegram\TelegramServiceProvider::class
+
     ],
 
     /*
