@@ -20,10 +20,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Users\Register\SendConfirmationEmail',
             'App\Listeners\Users\Register\SendTelegramNotification',
         ],
+
         'App\Events\Users\UserIsRegistered' => [
             'App\Listeners\Users\Registered\SendTelegramNotification',
         ],
-        'App\Events\Users\UserLoggedIn' => [
+
+        'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Users\Login\SendTelegramNotification',
         ],
 
