@@ -50,7 +50,6 @@ class AccountsController extends Controller
         ]);
 
         // Store Data
-        // TODO: Store Data only if the category and sub category pair is unique for the user data is not
         $account = Account::create([
             'user_id' => auth()->id(),
             'accountName'=> request('accountName'),

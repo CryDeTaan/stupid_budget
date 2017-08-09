@@ -17,9 +17,16 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Categories\DeleteSubcategories',
         ],
         'App\Events\Users\UserRegistered' => [
-            'App\Listeners\Users\SendConfirmationEmail',
-            'App\Listeners\Users\SendTelegramNotification',
-        ]
+            'App\Listeners\Users\Register\SendConfirmationEmail',
+            'App\Listeners\Users\Register\SendTelegramNotification',
+        ],
+        'App\Events\Users\UserIsRegistered' => [
+            'App\Listeners\Users\Registered\SendTelegramNotification',
+        ],
+        'App\Events\Users\UserLoggedIn' => [
+            'App\Listeners\Users\Login\SendTelegramNotification',
+        ],
+
     ];
 
     /**

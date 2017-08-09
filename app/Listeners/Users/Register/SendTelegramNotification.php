@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Listeners\Users;
+namespace App\Listeners\Users\Register;
 
 use App\Events\Users\UserRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\UserRegisteredTelegramNotification;
+use App\Notifications\TelegramNotificationRegister;
 
 class SendTelegramNotification implements ShouldQueue
 {
@@ -30,11 +30,6 @@ class SendTelegramNotification implements ShouldQueue
      */
     public function handle(UserRegistered $event)
     {
-
-
-
-        \Notification::send($event, new UserRegisteredTelegramNotification());
-
-        var_dump($event->user['name'].' created an account on Stupid Budget.');
+        \Notification::send($event, new TelegramNotificationRegister());
     }
 }

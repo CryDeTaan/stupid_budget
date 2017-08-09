@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class UserRegisteredTelegramNotification extends Notification
+class TelegramNotificationRegister extends Notification
 {
     use Queueable;
 
@@ -44,7 +44,7 @@ class UserRegisteredTelegramNotification extends Notification
     {
         return TelegramMessage::create()
             ->to('-210823203:')
-            ->content('New Registered User Notification, ' . $event->user['name'] . ' joined Stupid Budget');
+            ->content('New User; ' . $event->user['name'] . ' joined Stupid Budget');
     }
 
     /**
