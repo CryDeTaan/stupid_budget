@@ -48,7 +48,7 @@ class ExpensesController extends Controller
 
     }
 
-    public function store()
+    public function store(Request $request)
     {
         // Validate that subcategory is either a numeric or matches the string Unplanned.
         $this->validate(request(),

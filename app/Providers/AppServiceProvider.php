@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('match_category', function ($attribute, $value, $parameters, $validator) {
             $data = $validator->getData();
-            if (Subcategory::find($value)->category_id == '1') {
+            if (Subcategory::find($value)->category_id == $data['category_id']) {
                 return true;
             }
                 return false;

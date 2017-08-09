@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Users;
+namespace App\Listeners\Users\Register;
 
 use App\Events\Users\UserRegistered;
 use Illuminate\Queue\InteractsWithQueue;

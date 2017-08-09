@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Account;
 use App\Category;
-use App\Events\Users\UserRegistered;
 use App\Subcategory;
-Use Mail;
 use App\User;
-use App\Mail\verifyUser;
+use App\Events\Users\UserRegistered;
+use App\Events\Users\UserIsRegistered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -105,17 +105,40 @@ class RegisterController extends Controller
 
         $user->verifyAccount();
 
-        Category::create([
+        $unplannedCategory = Category::create([
             'user_id' => $user->id,
             'categoryName' => 'Unplanned',
         ]);
 
         Subcategory::create([
             'user_id' => $user->id,
-            'category_id' => '1',
+            'category_id' => $unplannedCategory->id,
             'subcategoryName' => 'Unplanned',
             'subcategoryBudget' => null
         ]);
+
+        $exampleCategory = Category::create([
+            'user_id' => $user->id,
+            'categoryName' => 'Example Category',
+        ]);
+
+        Subcategory::create([
+            'user_id' => $user->id,
+            'category_id' => $exampleCategory->id,
+            'subcategoryName' => 'Example Subcategory',
+            'subcategoryBudget' => '100'
+        ]);
+
+        Account::create([
+            'user_id' => $user->id,
+            'accountName'=> 'Example Account',
+            'accountDescription' => 'Example Description',
+            'accountType' => 'Example Type',
+            'openingBalance' => '0',
+            'balance' => '0' // Read 'Receive Required Data' section.
+        ]);
+
+        event(new UserIsRegistered($user));
 
         session()->flash('message', 'Account verified, please login');
 
