@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Users\Login;
 
+use Illuminate\Auth\Events\Login;
 use App\Events\Users\UserLoggedIn;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,7 +29,7 @@ class SendTelegramNotification implements ShouldQueue
      * @param  UserLoggedIn  $event
      * @return void
      */
-    public function handle(UserLoggedIn $event)
+    public function handle(Login $event)
     {
         \Notification::send($event, new TelegramNotificationLogin());
     }
