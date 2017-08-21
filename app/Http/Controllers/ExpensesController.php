@@ -48,7 +48,7 @@ class ExpensesController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store()
     {
         // Validate that subcategory is either a numeric or matches the string Unplanned.
         $this->validate(request(),
@@ -61,7 +61,8 @@ class ExpensesController extends Controller
                     ),
                 'expenseDescription' => 'required',
                 'amount' => 'required|numeric',
-                'account_id' => 'required|numeric'
+                'account_id' => 'required|numeric',
+                'expenseDate' => 'nullable|dateformat:Y-m-d'
             ],
             [
                 'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
@@ -75,6 +76,13 @@ class ExpensesController extends Controller
         } else {
             $subcategory = Subcategory::find(request()->subcategory_id);
         }
+
+        if (is_null(request('expenseDate'))) {
+            $expenseDate = Carbon::now();
+        } else {
+            $expenseDate = request('expenseDate').' 00:00:00';
+        }
+
         // Set $account variable.
         $account = Account::find(request()->account_id);
 
@@ -89,7 +97,8 @@ class ExpensesController extends Controller
             'account_id'=> $account->id,
             'category_id'=> $subcategory->category_id,
             'subcategory_id'=> $subcategory->id,
-            'amount' => request('amount')
+            'amount' => request('amount'),
+            'created_at' => $expenseDate
         ]);
 
         // Update account balance
@@ -111,8 +120,9 @@ class ExpensesController extends Controller
                         'regex:/^(\d*|Unplanned)$/u',
                         'match_category'
                     ),
-                'amount' => 'numeric',
-                'account_id' => 'numeric'
+                'amount' => 'nullable|numeric',
+                'account_id' => 'nullable|numeric',
+                'expenseDate' => 'nullable|dateformat:Y-m-d'
             ],
             [
                 'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
@@ -129,6 +139,7 @@ class ExpensesController extends Controller
         $subcategory_id = $expense->subcategory_id;
         $account_id = $expense->account_id;
         $amount = $expense->amount;
+        $expenseDate = $expense->created_at;
 
         // If request fields contains data, update variable based on the $request data.
         if (!empty(request('expenseDescription'))) {
@@ -157,13 +168,19 @@ class ExpensesController extends Controller
             Account::find($account_id)->increment('balance', $diffAmount);
         }
 
+        if (!empty(request('expenseDate'))) {
+            $expenseDate = request('expenseDate');
+        }
+
+
         Expense::where('id', $expense->id)
             ->update([
                 'expenseDescription' => $expenseDescription,
                 'category_id' => $category_id,
                 'subcategory_id' => $subcategory_id,
                 'account_id' => $account_id,
-                'amount' => $amount
+                'amount' => $amount,
+                'created_at' => $expenseDate
             ]);
 
         $expense = Expense::where('id', $expense->id)

@@ -10,6 +10,16 @@
             <section class="modal-card-body">
                     <form>
                         <div class="field">
+                            <label class="label">Expense Date</label>
+                            <p class="control">
+                                <datepicker
+                                        placeholder="Today"
+                                        :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                        v-model="form.expenseDate">
+                                </datepicker>
+                            </p>
+                        </div>
+                        <div class="field">
                             <label class="label">Description</label>
                             <p class="control">
                                 <input class="input" type="text" v-model="form.expenseDescription">
@@ -44,8 +54,13 @@
 <script>
 
     import Account from '../models/Account'
+    import Datepicker from 'vue-bulma-datepicker'
 
     export default {
+
+        components: {
+            Datepicker
+        },
 
         props: ['subcategory'],
 
@@ -56,7 +71,8 @@
                     category_id: '',
                     subcategory_id: '',
                     account_id: '',
-                    amount: ''
+                    amount: '',
+                    expenseDate: ''
                 }),
                 accounts: [],
             }

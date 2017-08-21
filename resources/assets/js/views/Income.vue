@@ -158,8 +158,7 @@
             },
 
             addedIncome(income) {
-                income = income.shift();
-                this.incomes.unshift(income);
+                this.$set(this,'incomes',income);
                 this.showAddIncomeModal = false
             },
 

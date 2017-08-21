@@ -8,9 +8,17 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-
                 <form>
-
+                    <div class="field">
+                        <label class="label">Income Date</label>
+                        <p class="control">
+                            <datepicker
+                                    :placeholder="income.created_at | date"
+                                    :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                    v-model="form.incomeDate">
+                            </datepicker>
+                        </p>
+                    </div>
                     <div class="field">
                         <label class="label">Income Description:</label>
                         <p class="control">
@@ -47,15 +55,23 @@
             </footer>
         </div>
     </div>
-
-
 </template>
-
 <script>
 
     import Account from '../models/Account'
+    import Datepicker from 'vue-bulma-datepicker'
 
     export default {
+
+        components: {
+            Datepicker
+        },
+
+        filters: {
+            date(date) {
+                return moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+            },
+        },
 
         props: ['income'],
 
@@ -64,7 +80,8 @@
                 form: new Form({
                     incomeDescription: '',
                     account_id: '',
-                    amount: ''
+                    amount: '',
+                    incomeDate: ''
                 }),
                 accounts: []
             }
