@@ -7,8 +7,17 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-
                 <form>
+                    <div class="field">
+                        <label class="label">Expense Date</label>
+                        <p class="control">
+                            <datepicker
+                                    :placeholder="expense.created_at | date"
+                                    :config="{ dateFormat: 'Y-m-d', altInput: true, altFormat: 'd-m-Y', static: true}"
+                                    v-model="form.expenseDate">
+                            </datepicker>
+                        </p>
+                    </div>
                     <div class="field">
                         <label class="label">Expense Description:</label>
                         <p class="control">
@@ -77,8 +86,19 @@
     import Account from '../models/Account'
     import Category from '../models/Category'
     import Subcategory from '../models/Subcategory'
+    import Datepicker from 'vue-bulma-datepicker'
 
     export default {
+
+        components: {
+            Datepicker
+        },
+
+        filters: {
+            date(date) {
+                return moment(date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+            },
+        },
 
         props: ['expense'],
 
@@ -89,7 +109,8 @@
                     category_id: '',
                     subcategory_id: '',
                     account_id: '',
-                    amount: ''
+                    amount: '',
+                    expenseDate: ''
                 }),
                 accounts: [],
                 categories: [],

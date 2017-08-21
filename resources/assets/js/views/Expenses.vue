@@ -162,8 +162,7 @@
             },
 
             addedExpense(expense) {
-                expense = expense.shift();
-                this.expenses.unshift(expense);
+                this.$set(this,'expenses',expense);
                 this.showAddExpenseModal = false
             },
 

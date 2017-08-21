@@ -46,11 +46,9 @@ class IncomesController extends Controller
 
     }
 
-
-
-
-    public function store()
+    public function store(Request $request)
     {
+
         /*
         Receive Required Data
         user_id: auth()->id()
@@ -58,7 +56,6 @@ class IncomesController extends Controller
         account_id: request()->account_id
         amount: request()->amount
         */
-//        dd(auth()->id(),request()->incomeDescription, request()->account_id, request()->amount);
 
         // Authorise account access.
         $account = Account::find(request()->account_id);
@@ -68,17 +65,24 @@ class IncomesController extends Controller
         $this->validate(request(), [
             'incomeDescription' => 'required',
             'amount' => 'required|numeric',
-            'account_id' => 'required|numeric'
+            'account_id' => 'required|numeric',
+            'incomeDate' => 'nullable|dateformat:Y-m-d'
         ]);
+
+        if (is_null(request('incomeDate'))) {
+            $incomeDate = Carbon::now();
+        } else {
+            $incomeDate = request('incomeDate').' 00:00:00';
+        }
 
         // Store Data
         Income::create([
             'user_id' => auth()->id(),
             'incomeDescription' => request('incomeDescription'),
             'account_id'=> request('account_id'),
-            'amount' => request('amount')
+            'amount' => request('amount'),
+            'created_at' => $incomeDate
         ]);
-
 
         // Update account balance
         Account::find(request()->account_id)->increment('balance', request()->amount);
@@ -89,6 +93,15 @@ class IncomesController extends Controller
 
     public function update(Income $income)
     {
+
+        // Validate request
+        $this->validate(request(), [
+            'amount' => 'nullable|numeric',
+            'account_id' => 'nullable|numeric',
+            'incomeDate' => 'nullable|dateformat:Y-m-d'
+        ]);
+
+
         $this->authorize('accessIncome', $income);
 
         if (is_null(request('incomeDescription'))) {
@@ -106,7 +119,6 @@ class IncomesController extends Controller
 
             // Update new account balance
             Account::find($account_id)->increment('balance', $income->amount);
-
         }
         if (is_null(request('amount'))) {
             $amount = $income->amount;
@@ -118,12 +130,18 @@ class IncomesController extends Controller
             Account::find($account_id)->decrement('balance', $diffAmount);
 
         }
+        if (is_null(request('incomeDate'))) {
+            $incomeDate = $income->created_at;
+        } else {
+            $incomeDate = request('incomeDate').' 00:00:00';
+        }
 
         Income::where('id', $income->id)
             ->update([
                 'incomeDescription' => $incomeDescription,
                 'account_id' => $account_id,
-                'amount' => $amount
+                'amount' => $amount,
+                'created_at' => $incomeDate
             ]);
 
         $income = Income::where('id', $income->id)

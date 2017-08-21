@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Income extends Model
 {
-    protected $fillable = ['user_id','incomeDescription','account_id', 'amount'];
+    protected $fillable = ['user_id','incomeDescription','account_id', 'amount', 'created_at'];
 
     public function user()
     {
