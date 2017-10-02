@@ -11,7 +11,8 @@
                     <div class="field">
                         <label class="label">Category</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.categoryName">
+                            <input class="input" type="text" v-model="form.categoryName" @keydown="form.errors.clear('categoryName')">
+                            <span class="help is-danger" v-text="form.errors.get('categoryName')"></span>
                         </p>
                     </div>
                 </form>

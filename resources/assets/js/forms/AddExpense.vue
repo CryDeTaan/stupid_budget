@@ -22,7 +22,8 @@
                     <div class="field">
                         <label class="label">Description</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.expenseDescription">
+                            <input class="input" type="text" v-model="form.expenseDescription" @keydown="form.errors.clear('expenseDescription')">
+                            <span class="help is-danger" v-text="form.errors.get('expenseDescription')"></span>
                         </p>
                     </div>
                     <div class="field">
@@ -31,39 +32,41 @@
                             <span class="select is-fullwidth">
                               <select v-model="form.category_id" @change="categorySelected($event)">
                                   <option value="Unplanned">Unplanned</option>
-                                <option v-for="category in categories" :value="category.id">{{ category.categoryName
-                                    }}</option>
+                                  <option v-for="category in categories" :value="category.id">{{ category.categoryName }}</option>
                               </select>
                             </span>
+                            <span class="help is-danger" v-text="form.errors.get('category_id')"></span>
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Sub Category</label>
                         <p class="control">
                             <span class="select is-fullwidth">
-                              <select v-model="form.subcategory_id">
-                                  <option value="Unplanned">Unplanned</option>
+                              <select v-model="form.subcategory_id" @change="form.errors.clear('subcategory_id')">
                                 <option v-for="subcategory in subcategories"
                                         :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
                               </select>
                             </span>
+                            <span class="help is-danger" v-text="form.errors.get('subcategory_id')"></span>
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Account</label>
                         <p class="control">
                             <span class="select is-fullwidth">
-                              <select v-model="form.account_id">
+                              <select v-model="form.account_id" @change="form.errors.clear('account_id')">
                                 <option v-for="account in accounts" :value="account.id">{{ account.accountName
                                     }}</option>
                               </select>
                             </span>
+                            <span class="help is-danger" v-text="form.errors.get('account_id')"></span>
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Amount</label>
                         <p class="control">
-                            <input class="input" type="number" v-model="form.amount">
+                            <input class="input" type="number" v-model="form.amount" @keydown="form.errors.clear('amount')">
+                            <span class="help is-danger" v-text="form.errors.get('amount')"></span>
                         </p>
                     </div>
                 </form>
@@ -122,7 +125,6 @@
             },
 
             categorySelected(event) {
-                console.log("test");
                 Subcategory.all(event.target.value)
                     .then(({data}) => this.subcategories = data);
             }
