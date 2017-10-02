@@ -57,17 +57,21 @@ class IncomesController extends Controller
         amount: request()->amount
         */
 
-        // Authorise account access.
-        $account = Account::find(request()->account_id);
-        $this->authorize('accessAccount', $account);
-
         // Validate Data
         $this->validate(request(), [
             'incomeDescription' => 'required',
             'amount' => 'required|numeric',
             'account_id' => 'required|numeric',
             'incomeDate' => 'nullable|dateformat:Y-m-d'
-        ]);
+        ],
+            [
+                'account_id.required' => 'An Account must be selected.'
+            ]
+        );
+
+        // Authorise account access.
+        $account = Account::find(request()->account_id);
+        $this->authorize('accessAccount', $account);
 
         if (is_null(request('incomeDate'))) {
             $incomeDate = Carbon::now();

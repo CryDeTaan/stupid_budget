@@ -13,8 +13,13 @@ class SubcategoriesController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Category $category)
+    public function index($category)
     {
+        if ($category === 'Unplanned') {
+            $category = Category::where('user_id', auth()->id())->first();
+        } else {
+            $category = Category::where('id', $category)->first();
+        }
         $this->authorize('accessCategory', $category);
         $subcategories = Subcategory::where('category_id', $category->id)->get();
         return $subcategories;

@@ -26,7 +26,7 @@
                     </div>
                     <div class="field">
                         <label class="label">Select Expense Category:</label>
-                        <p class="help is-danger">
+                        <p class="help">
                             Currently selected: {{ expense.category.categoryName }}
                         </p>
                         <p class="control">
@@ -40,21 +40,21 @@
                     </div>
                     <div class="field">
                         <label class="label">Select Expense Subcategory: {{ expense.subcategory.subcategoryName }}</label>
-                        <p class="help is-danger">
+                        <p class="help">
                             Currently selected: {{ expense.subcategory.subcategoryName }}
                         </p>
                         <p class="control">
                             <span class="select is-fullwidth">
                               <select v-model="form.subcategory_id">
-                                  <option value="Unplanned">Unplanned</option>
                                   <option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.subcategoryName }}</option>
                               </select>
                             </span>
+                            <span class="help is-danger" v-text="form.errors.get('subcategory_id')"></span>
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Select Account:</label>
-                        <p class="help is-danger">
+                        <p class="help">
                             Currently selected: {{ expense.account.accountName }}
                         </p>
                         <p class="control">

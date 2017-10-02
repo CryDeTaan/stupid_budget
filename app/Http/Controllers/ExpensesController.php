@@ -50,6 +50,20 @@ class ExpensesController extends Controller
 
     public function store()
     {
+        // Set Variables
+        // Set $subcategory variable based on subcategory being an ID or the string 'Unplanned'
+        if (request()->subcategory_id === 'Unplanned') {
+            $subcategory = Subcategory::where('user_id', auth()->id())->first();
+        } else {
+            $subcategory = Subcategory::find(request()->subcategory_id);
+        }
+
+        if (is_null(request('expenseDate'))) {
+            $expenseDate = Carbon::now();
+        } else {
+            $expenseDate = request('expenseDate').' 00:00:00';
+        }
+
         // Validate that subcategory is either a numeric or matches the string Unplanned.
         $this->validate(request(),
             [
@@ -65,23 +79,11 @@ class ExpensesController extends Controller
                 'expenseDate' => 'nullable|dateformat:Y-m-d'
             ],
             [
-                'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.'
+                'subcategory_id.match_category' => 'The Subcategory does not belong to the requested Category.',
+                'account_id.required' => 'An Account must be selected.'
             ]
         );
 
-        // Set Variables
-        // Set $subcategory variable based on subcategory being an ID or the string 'Unplanned'
-        if (request()->subcategory_id === 'Unplanned') {
-            $subcategory = Subcategory::where('user_id', auth()->id())->first();
-        } else {
-            $subcategory = Subcategory::find(request()->subcategory_id);
-        }
-
-        if (is_null(request('expenseDate'))) {
-            $expenseDate = Carbon::now();
-        } else {
-            $expenseDate = request('expenseDate').' 00:00:00';
-        }
 
         // Set $account variable.
         $account = Account::find(request()->account_id);

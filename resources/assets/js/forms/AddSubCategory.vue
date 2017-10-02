@@ -12,13 +12,15 @@
                     <div class="field">
                         <label class="label">Subcategory name</label>
                         <p class="control">
-                            <input class="input" type="text" v-model="form.subcategoryName">
+                            <input class="input" type="text" v-model="form.subcategoryName" @keydown="form.errors.clear('subcategoryName')">
+                            <span class="help is-danger" v-text="form.errors.get('subcategoryName')"></span>
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Budget Amount</label>
                         <p class="control">
-                            <input class="input" type="number" v-model="form.subcategoryBudget">
+                            <input class="input" type="number" v-model="form.subcategoryBudget" @keydown="form.errors.clear('subcategoryBudget')">
+                            <span class="help is-danger" v-text="form.errors.get('subcategoryBudget')"></span>
                         </p>
                     </div>
                     <div class="field">
