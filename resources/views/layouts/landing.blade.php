@@ -1,5 +1,26 @@
 <!-- Headings to fade in from either side of the page - left, right, left, right. Use CSS or JS animation framework for this. Keep text static.-->
 <!-- Headings to be the same colour as their pages. -->
+<div class="columns">
+    <div class="column">
+        <div class="center-heading budget" id="budget">
+            <p> Stupid Budget </p>
+        </div>
+        <div class="main-paragraph">
+            <p class="center-text">
+                No one likes setting up a <strong class="budget"> Budget </strong> and never mind maintaining it. But it has to be done.
+            </p>
+            <br>
+            <p class="center-text">
+                <strong class="accounts">Budgeting is stupid.</strong>
+            </p>
+        <br>
+            <p class="center-text">
+                So lets use K.I.S.S - Let's keep it simple, stupid.
+                (K-I-S-S, was developed and used as a design principle by the US Navy in the 60s)
+            </p>
+        </div>
+    </div>
+</div>
 
 <div class="columns">
     <div class="column">
@@ -14,9 +35,6 @@
             </p>
         </div>
     </div>
-</div>
-
-<div class="columns">
     <div class="column">
         <div class="center-heading heading-right accounts" id="accounts">
             <p> Accounts </p>
@@ -43,9 +61,6 @@
             </p>
         </div>
     </div>
-</div>
-
-<div class="columns">
     <div class="column">
         <div class="center-heading heading-right expenses" id="expenses">
             <p> Expenses </p>
@@ -64,37 +79,18 @@
 <br>
 <br>
 
-<!-- Short description of what KISS is and where the name comes from-->
-<div class="columns">
-    <div class="column">
-        <div class="media-content">
-            <div class="content">
-
-                <p class="header"> Stupid Budget </p>
-
-                Have you ever heard of <em>Keep It Simple Stupid</em>?<br>
-                Keep It Simple Stupid, or K-I-S-S, was developed and used as a design principle by the US Navy in the
-                60s. Stupid Budget is digital proof that Simple is Better.<br>
-                Manage your money, simply, with Stupid Budget.
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
-<br>
-<br>
-
 <!-- Image gallery -->
 
 <!-- images -->
 <div class="columns gallery" id="galleryHeight">
 
     <figure class="image is-4by2 gallery-image" id="imageWidth">
-        <img src="images/Budget.png" alt="Image">
+        <img src="images/Dashboard.png" alt="Image">
     </figure>
 
+    <figure class="image is-4by2 gallery-image" id="imageWidth">
+        <img src="images/Budget.png" alt="Image">
+    </figure>
 
     <figure class="image is-4by2 gallery-image">
         <img src="images/Accounts.png" alt="Image">
