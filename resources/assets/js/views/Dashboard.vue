@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="title has-text-centered">Overview for August!</h1>
+        <h1 class="title has-text-centered">Overview for October!</h1>
         <div class="box">
             <div class="content">
                 <nav class="level is-mobile">
