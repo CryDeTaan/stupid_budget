@@ -5042,6 +5042,8 @@ label.panel-block {
   float: left;
   transition: opacity 0.4s;
   position: relative; }
+  .gallery-image:first-child {
+    margin-left: 100px; }
   .gallery-image--fade {
     opacity: 0.5; }
   .gallery-image--right {

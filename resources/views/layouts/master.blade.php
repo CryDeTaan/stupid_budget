@@ -86,8 +86,6 @@
     let imageWidth = (document.querySelector('#imageWidth').clientWidth + 2);
     let gallery = document.querySelector('#galleryHeight');
 
-    console.log(maxImage + " maxImage");
-
     function moveLeft() {
 
         currentImage = currentImage > 0 ? currentImage - 1 : currentImage;
