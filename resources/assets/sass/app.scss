@@ -86,6 +86,10 @@ color: #ff3860;
   transition: opacity 0.4s;
   position: relative;
 
+  &:first-child {
+    margin-left: 100px;
+  }
+
   &--fade {
     opacity: 0.5;
   }
